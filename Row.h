@@ -1,6 +1,9 @@
 #ifndef _ROW_H_
 #define  _ROW_H_
 
+#include "Cell.h"
+#include "Board.h"
+
 typedef struct {
   cell_t *rowStart;
 } row_t;

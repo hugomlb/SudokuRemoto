@@ -10,7 +10,7 @@ int row_checkRules(row_t *self) {
   ruleVerifier_t ruleVerifier;
   ruleVerifier_init(& ruleVerifier);
   for (int i = 0; i < 9; i ++) {
-    int numToAdd = cell_getNumber(* (self -> rowStart + i);
+    int numToAdd = cell_getNumber(self -> rowStart + i);
     ruleVerifier_addNumber(& ruleVerifier, numToAdd);
   }
   return ruleVerifier_verify(& ruleVerifier);

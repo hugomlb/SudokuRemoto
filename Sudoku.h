@@ -2,9 +2,15 @@
 #define  _SUDOKU_H_
 
 #include "Board.h"
+#include "Row.h"
+#include "Column.h"
+#include "Sector.h"
 
 typedef struct {
   board_t board;
+  row_t rows[9];
+  column_t columns[9];
+  sector_t sectors[9];
 } sudoku_t;
 
 void sudoku_init(sudoku_t *self);

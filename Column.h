@@ -1,6 +1,9 @@
 #ifndef _COLUMN_H_
 #define  _COLUMN_H_
 
+#include "Cell.h"
+#include "Board.h"
+
 typedef struct {
   cell_t *columnStart;
 } column_t;

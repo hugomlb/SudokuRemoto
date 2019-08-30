@@ -1,6 +1,9 @@
 #ifndef _SECTOR_H_
 #define  _SECTOR_H_
 
+#include "Sector.h"
+#include "Board.h"
+
 typedef struct {
   cell_t *sectorStart;
 } sector_t;

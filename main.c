@@ -1,20 +1,13 @@
-#include "RuleVerifier.h"
+#include "Sudoku.h"
 #include <stdio.h>
 
-#define C 3
+#define C 9
 
 int main(int argc, char const *argv[]) {
-  int a[3] [3];
-  int ind = 1;
-  for (int i = 0; i < 3; i ++) {
-    for (int j = 0; j < 3; j ++) {
-      a[i][j] = ind;
-      ind ++;
-    }
-  }
-  int *p = & a[0][0];
-  printf("%d\n", *(p+(C*0)));
-  printf("%d\n", *(p+(C*1)));
-  printf("%d\n", *(p+(C*2)));
+  sudoku_t sudoku;
+  sudoku_init(& sudoku);
+  sudoku_addNumberIn(& sudoku, 4, 1, 1);
+  sudoku_addNumberIn(& sudoku, 9, 9, 9);
+  sudoku_restart(& sudoku);
   return 0;
 }
