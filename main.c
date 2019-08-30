@@ -1,6 +1,8 @@
 #include "RuleVerifier.h"
 #include <stdio.h>
 
+#define C 3
+
 int main(int argc, char const *argv[]) {
   int a[3] [3];
   int ind = 1;
@@ -11,8 +13,8 @@ int main(int argc, char const *argv[]) {
     }
   }
   int *p = & a[0][0];
-  printf("%d\n", *(p+0));
-  printf("%d\n", *(p+1));
-  printf("%d\n", *(p+2));
+  printf("%d\n", *(p+(C*0)));
+  printf("%d\n", *(p+(C*1)));
+  printf("%d\n", *(p+(C*2)));
   return 0;
 }
