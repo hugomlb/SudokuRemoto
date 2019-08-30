@@ -9,7 +9,7 @@ typedef struct {
 
 void board_init(board_t *self);
 
-void board_addNumberIn(board_t *self, int number, int row, int column);
+void board_addNumberIn(board_t *self, int num, int row, int column);
 
 void board_restart(board_t *self);
 

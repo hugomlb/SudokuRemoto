@@ -12,9 +12,9 @@ void board_init(board_t *self) {
   }
 }
 
-void board_addNumberIn(board_t *self, int number, int row, int column) {
+void board_addNumberIn(board_t *self, int num, int row, int column) {
   cell_t *cellToChange = &(self -> sudokuBoard [row][column]);
-  cell_add(cellToChange, number);
+  cell_add(cellToChange, num);
 }
 
 void board_restart(board_t *self) {

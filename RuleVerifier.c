@@ -11,10 +11,10 @@ void ruleVerifier_init(ruleVerifier_t *self) {
   self -> totalNumbers = 0;
 }
 
-void ruleVerifier_addNumber(ruleVerifier_t *self, int number) {
+void ruleVerifier_addNumber(ruleVerifier_t *self, int num) {
   self -> totalNumbers ++;
-  if (self -> numbers [number] == 0) {
-    self -> numbers [number] = number;
+  if (self -> numbers [num] == 0) {
+    self -> numbers [num] = num;
     self -> legalNumbers ++;
   }
 }

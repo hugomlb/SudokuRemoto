@@ -5,7 +5,7 @@ typedef struct {
   cell_t *columnStart;
 } column_t;
 
-void column_init(column_t *self, board_t *pBoard, int columnNumber);
+void column_init(column_t *self, board_t *pBoard, int columnNum);
 
 int column_checkRules(column_t *self);
 

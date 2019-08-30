@@ -5,7 +5,7 @@ typedef struct {
   cell_t *rowStart;
 } row_t;
 
-void row_init(row_t *self, board_t *pBoard, int rowNumber);
+void row_init(row_t *self, board_t *pBoard, int rowNum);
 
 int row_checkRules(row_t *self);
 

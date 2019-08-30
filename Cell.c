@@ -1,16 +1,16 @@
 #include "Cell.h"
 
-void cell_init(cell_t *self, int cellValue) {
+void cell_init(cell_t *self, int cellNum) {
     self -> clue = false;
-    cell_add(self, cellValue);
-    if (cellValue > 0) {
+    cell_add(self, cellNum);
+    if (cellNum > 0) {
       self -> clue = true;
     }
 }
 
-void cell_add(cell_t *self, int cellValue) {
+void cell_add(cell_t *self, int cellNum) {
   if (!(self -> clue)) {
-    self -> value = cellValue;
+    self -> number = cellNum;
   }
 }
 

@@ -4,13 +4,13 @@
 #include <stdbool.h>
 
 typedef struct {
-  int value;
+  int number;
   bool clue;
 } cell_t;
 
-void cell_init(cell_t *self, int cellValue);
+void cell_init(cell_t *self, int cellNum);
 
-void cell_add(cell_t *self, int cellValue);
+void cell_add(cell_t *self, int cellNum);
 
 void cell_restart(cell_t *self);
 

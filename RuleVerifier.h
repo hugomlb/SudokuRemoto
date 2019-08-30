@@ -8,7 +8,7 @@ typedef struct {
 
 void ruleVerifier_init(ruleVerifier_t *self);
 
-void ruleVerifier_addNumber(ruleVerifier_t *self, int number);
+void ruleVerifier_addNumber(ruleVerifier_t *self, int num);
 
 int ruleVerifier_verify(ruleVerifier_t *self);
 
