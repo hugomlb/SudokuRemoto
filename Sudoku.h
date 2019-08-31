@@ -23,6 +23,12 @@ void sudoku_printBoard(sudoku_t *self);
 
 void sudoku_checkRules(sudoku_t *self);
 
+int sudoku_checkRulesOnRows(sudoku_t *self, int onRule);
+
+int sudoku_checkRulesOnColumns(sudoku_t *self, int onRule);
+
+int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule);
+
 void sudoku_release(sudoku_t *self);
 
 #endif

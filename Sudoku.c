@@ -4,7 +4,7 @@
 #define YES 0
 
 void sudoku_init(sudoku_t *self) {
-  board_init(&(self -> board));
+  board_init(& (self -> board));
 
   for (int i = 0; i < 9; i++) {
     column_init(& (self -> columns[i]), &(self -> board), i);
@@ -17,7 +17,6 @@ void sudoku_init(sudoku_t *self) {
       counter ++;
     }
   }
-
 }
 
 void sudoku_addNumberIn(sudoku_t *self, int number, int row, int column) {
@@ -34,20 +33,35 @@ void sudoku_printBoard(sudoku_t *self) {
 
 void sudoku_checkRules(sudoku_t *self) {
   int onRule = YES;
+  onRule = sudoku_checkRulesOnRows(self, onRule);
+  onRule = sudoku_checkRulesOnColumns(self, onRule);
+  onRule = sudoku_checkRulesOnSectors(self, onRule);
+  printf("%d\n", onRule);
+}
+
+int sudoku_checkRulesOnRows(sudoku_t *self, int onRule) {
   int counter = 0;
   while (onRule == YES && counter < 9) {
     onRule = row_checkRules(& (self -> rows[counter]));
     counter ++;
   }
-  counter = 0;
+  return onRule;
+}
+
+int sudoku_checkRulesOnColumns(sudoku_t *self, int onRule) {
+  int counter = 0;
   while (onRule == YES && counter < 9) {
     onRule = column_checkRules(& (self -> columns[counter]));
     counter ++;
   }
-  counter = 0;
+  return onRule;
+}
+
+int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule) {
+  int counter = 0;
   while (onRule == YES && counter < 9) {
     onRule = sector_checkRules(& (self -> sectors[counter]));
     counter ++;
   }
-  printf("%d\n", onRule);
+  return onRule;
 }
