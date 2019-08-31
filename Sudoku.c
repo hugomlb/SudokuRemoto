@@ -4,20 +4,22 @@ void sudoku_init(sudoku_t *self) {
   board_init(&(self -> board));
 
   for (int i = 0; i < 9; i++) {
-    column_init(& (self -> columns[i]));
-    row_init(& (self -> rows[i]));
+    column_init(& (self -> columns[i]), &(self -> board), i);
+    row_init(& (self -> rows[i]), &(self -> board), i);
   }
 
-  for (int i = 0; i < 9; i + 3) {
-    for(int j = 0; j < 9; j + 3) {
-      sector_init(& (self -> sectors), & (self -> board), i, j);
+  for (int i = 0; i < 9; i += 3) {
+    for(int j = 0; j < 9; j += 3) {
+      int counter = 0;
+      sector_init(& (self -> sectors[counter]), & (self -> board), i, j);
+      counter ++;
     }
   }
 
 }
 
 void sudoku_addNumberIn(sudoku_t *self, int number, int row, int column) {
-  board_addNumberIn(& (self -> board), number, row + 1, column + 1);
+  board_addNumberIn(& (self -> board), number, row - 1, column - 1);
 }
 
 void sudoku_restart(sudoku_t *self) {
@@ -29,5 +31,5 @@ void sudoku_printBoard(sudoku_t *self) {
 }
 
 void sudoku_checkRules(sudoku_t *self) {
-  
+
 }

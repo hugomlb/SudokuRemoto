@@ -20,6 +20,10 @@ void cell_restart(cell_t *self) {
   }
 }
 
+int cell_getNumber(cell_t *self) {
+  return self -> number;
+}
+
 void cell_release(cell_t *self){
   //Do Nothing
 }
