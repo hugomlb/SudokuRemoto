@@ -10,10 +10,9 @@ void sudoku_init(sudoku_t *self) {
     column_init(& (self -> columns[i]), &(self -> board), i);
     row_init(& (self -> rows[i]), &(self -> board), i);
   }
-
+  int counter = 0;
   for (int i = 0; i < 9; i += 3) {
     for(int j = 0; j < 9; j += 3) {
-      int counter = 0; //ESTO ESTA MAL ARREGLAR!!!
       sector_init(& (self -> sectors[counter]), & (self -> board), i, j);
       counter ++;
     }
@@ -43,6 +42,11 @@ void sudoku_checkRules(sudoku_t *self) {
   counter = 0;
   while (onRule == YES && counter < 9) {
     onRule = column_checkRules(& (self -> columns[counter]));
+    counter ++;
+  }
+  counter = 0;
+  while (onRule == YES && counter < 9) {
+    onRule = sector_checkRules(& (self -> sectors[counter]));
     counter ++;
   }
   printf("%d\n", onRule);
