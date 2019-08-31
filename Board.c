@@ -3,13 +3,19 @@
 #include <stdio.h>
 
 void board_init(board_t *self) {
+  FILE* boardFile;
+  boardFile = fopen("board.txt", "r");
+  int numberOfCell = fgetc(boardFile);
   for (int row = 0; row < 9; row ++) {
     for (int column = 0; column < 9; column ++) {
       cell_t cell;
-      cell_init(&cell, 0);
+      cell_init(&cell, numberOfCell - 48);
       self -> sudokuBoard [row][column] = cell;
+      fgetc(boardFile);
+      numberOfCell = fgetc(boardFile);
     }
   }
+  fclose(boardFile);
 }
 
 void board_addNumberIn(board_t *self, int num, int row, int column) {
