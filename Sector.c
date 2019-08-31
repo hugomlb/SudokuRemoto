@@ -10,9 +10,10 @@ void sector_init(sector_t *self, board_t *pBoard, int rowNum, int columnNum) {
 int sector_checkRules(sector_t *self) {
   ruleVerifier_t ruleVerifier;
   ruleVerifier_init(& ruleVerifier);
-  for (int col = 0; col < 3; col ++) {
+  for (int column = 0; column < 3; column ++) {
     for (int row = 0; row < 3; row ++){
-      int numToAdd = cell_getNumber(self -> sectorStart + row + ROWSIZE*col);
+      int displacement = row + ROWSIZE * column;
+      int numToAdd = cell_getNumber(self -> sectorStart + displacement);
       ruleVerifier_addNumber(& ruleVerifier, numToAdd);
     }
   }

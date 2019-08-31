@@ -25,9 +25,11 @@ int cell_getNumber(cell_t *self) {
   return self -> number;
 }
 
+//****************NO APTO PARA VERSIO FINAL***************************
 void cell_print(cell_t *self) {
   printf("%d", self -> number);
 }
+//********************************************************************
 
 void cell_release(cell_t *self) {
   //Do Nothing

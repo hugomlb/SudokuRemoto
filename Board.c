@@ -26,6 +26,7 @@ void board_restart(board_t *self) {
   }
 }
 
+//**************** NO APTO PARA VERSION FINAL *************************
 void board_print(board_t *self) {
   for (int row = 0; row < 9; row ++) {
     for (int column = 0; column < 9; column ++) {
@@ -35,6 +36,7 @@ void board_print(board_t *self) {
   }
   printf("\n");
 }
+//********************************************************************
 
 cell_t* board_getCellIn(board_t *self, int row, int column) {
   return &(self -> sudokuBoard [row][column]);
