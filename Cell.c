@@ -1,4 +1,5 @@
 #include "Cell.h"
+#include <stdio.h>
 
 void cell_init(cell_t *self, int cellNum) {
     self -> clue = false;
@@ -24,6 +25,10 @@ int cell_getNumber(cell_t *self) {
   return self -> number;
 }
 
-void cell_release(cell_t *self){
+void cell_print(cell_t *self) {
+  printf("%d", self -> number);
+}
+
+void cell_release(cell_t *self) {
   //Do Nothing
 }

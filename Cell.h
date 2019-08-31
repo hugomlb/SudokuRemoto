@@ -18,4 +18,6 @@ void cell_release(cell_t *self);
 
 int cell_getNumber(cell_t *self);
 
+void cell_print(cell_t *self);
+
 #endif

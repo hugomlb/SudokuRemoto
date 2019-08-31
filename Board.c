@@ -26,16 +26,14 @@ void board_restart(board_t *self) {
   }
 }
 
-void board_print(board_t *self){
-  printf("%s\n", "U===========U===========U===========U\n");
-  for (int i=0; i<3; i++) {
-    printf("%s\n", "U X | X | X U X | X | X U X | X | X U\n");
-    printf("%s\n", "U---+---+---U---+---+---U---+---+---U\n");
-    printf("%s\n", "U X | X | X U X | X | X U X | X | X U\n");
-    printf("%s\n", "U---+---+---U---+---+---U---+---+---U\n");
-    printf("%s\n", "U X | X | X U X | X | X U X | X | X U\n");
-    printf("%s\n", "U===========U===========U===========U\n");
+void board_print(board_t *self) {
+  for (int row = 0; row < 9; row ++) {
+    for (int column = 0; column < 9; column ++) {
+      cell_print(& (self -> sudokuBoard[row][column]));
+    }
+    printf("\n");
   }
+  printf("\n");
 }
 
 cell_t* board_getCellIn(board_t *self, int row, int column) {

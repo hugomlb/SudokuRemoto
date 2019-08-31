@@ -1,4 +1,7 @@
 #include "Sudoku.h"
+#include <stdio.h>
+
+#define YES 0
 
 void sudoku_init(sudoku_t *self) {
   board_init(&(self -> board));
@@ -10,7 +13,7 @@ void sudoku_init(sudoku_t *self) {
 
   for (int i = 0; i < 9; i += 3) {
     for(int j = 0; j < 9; j += 3) {
-      int counter = 0;
+      int counter = 0; //ESTO ESTA MAL ARREGLAR!!!
       sector_init(& (self -> sectors[counter]), & (self -> board), i, j);
       counter ++;
     }
@@ -31,5 +34,16 @@ void sudoku_printBoard(sudoku_t *self) {
 }
 
 void sudoku_checkRules(sudoku_t *self) {
-
+  int onRule = YES;
+  int counter = 0;
+  while (onRule == YES && counter < 9) {
+    onRule = row_checkRules(& (self -> rows[counter]));
+    counter ++;
+  }
+  counter = 0;
+  while (onRule == YES && counter < 9) {
+    onRule = column_checkRules(& (self -> columns[counter]));
+    counter ++;
+  }
+  printf("%d\n", onRule);
 }

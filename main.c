@@ -6,8 +6,13 @@
 int main(int argc, char const *argv[]) {
   sudoku_t sudoku;
   sudoku_init(& sudoku);
-  sudoku_addNumberIn(& sudoku, 4, 1, 1);
-  sudoku_addNumberIn(& sudoku, 9, 9, 9);
+  sudoku_addNumberIn(& sudoku, 4, 1, 9);
+  sudoku_printBoard(& sudoku);
+  sudoku_addNumberIn(& sudoku, 4, 9, 9);
+  sudoku_checkRules(& sudoku);
+  sudoku_printBoard(& sudoku);
   sudoku_restart(& sudoku);
+  sudoku_checkRules(& sudoku);
+  sudoku_printBoard(& sudoku);
   return 0;
 }
