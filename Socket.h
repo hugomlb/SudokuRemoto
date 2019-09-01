@@ -2,15 +2,15 @@
 #define _SOCKET_H_
 
 typedef struct {
-
+  int fd;
 } socket_t;
 
-int socket_send(socket_t *self, const void *buffer, size_t lenght);
+void socket_init(socket_t *self, int domain, int type, int protocol);
+
+//int socket_send(socket_t *self, const void *buffer, size_t lenght);
 
 //***************VER PARAMETROS DE ESTA FUNCION****************
 int socket_receive();
-
-void socket_init(socket_t *self);
 
 //**************VER PARAMETROS DE ESTA FUNCION*****************
 void socket_release();

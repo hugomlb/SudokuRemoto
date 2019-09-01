@@ -1,18 +1,13 @@
-#include "Host.h"
+#include "Server.h"
 #define _POSIX_C_SOURCE 200112L
 
-#include <stdio.h>
-#include <errno.h>
 #include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
 
-void host_init(host_t *self){
+void server_init(server_t *self){
   sudoku_init(& (self -> sudoku));
   struct addrinfo hints;
   struct addrinfo *ptr;
@@ -21,5 +16,6 @@ void host_init(host_t *self){
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
   self -> local_addr = getaddrinfo(NULL, "http", & hints, & ptr);
+  socket_init(& (self -> socket), AF_INET, SOCK_STREAM, ptr -> ai_protocol);
   freeaddrinfo(ptr);
 }
