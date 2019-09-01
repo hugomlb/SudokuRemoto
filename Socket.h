@@ -1,6 +1,13 @@
 #ifndef _SOCKET_H_
 #define _SOCKET_H_
 
+#define _POSIX_C_SOURCE 200112L
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+#include <unistd.h>
+
 typedef struct {
   int fd;
 } socket_t;
@@ -17,6 +24,6 @@ void socket_release();
 
 int socket_connect(socket_t *self, const char *host, const char *service);
 
-int socket_bind_and_listen(socket_t *self, const char *service);
+int socket_bindAndListen(socket_t *self, const struct sockaddr *addr, socklen_t adderlen, int backlog);
 
 #endif
