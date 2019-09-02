@@ -16,7 +16,11 @@ void server_init(server_t *self){
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
   self -> local_addr = getaddrinfo(NULL, "http", & hints, & ptr);
-  socket_init(& (self -> socket), AF_INET, SOCK_STREAM, ptr -> ai_protocol);
-  socket_bindAndListen(& (self -> socket), ptr -> ai_addr, ptr -> ai_addrlen, 20);
+  socket_init(& (self -> serverSocket), AF_INET, SOCK_STREAM, ptr -> ai_protocol);
+  socket_bindAndListen(& (self -> serverSocket), ptr -> ai_addr, ptr -> ai_addrlen, 20);
   freeaddrinfo(ptr);
+}
+
+void server_run(server_t *self) {
+  self -> clientSocket = socket_receive(& self -> serverSocket);
 }

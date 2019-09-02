@@ -16,8 +16,7 @@ void socket_init(socket_t *self, int domain, int type, int protocol);
 
 //int socket_send(socket_t *self, const void *buffer, size_t lenght);
 
-//***************VER PARAMETROS DE ESTA FUNCION****************
-int socket_receive();
+socket_t socket_receive(socket_t *self);
 
 //**************VER PARAMETROS DE ESTA FUNCION*****************
 void socket_release();
@@ -25,5 +24,7 @@ void socket_release();
 int socket_connect(socket_t *self, const char *host, const char *service);
 
 int socket_bindAndListen(socket_t *self, const struct sockaddr *addr, socklen_t adderlen, int backlog);
+
+void socket_setFd(socket_t *self, int newFd);
 
 #endif

@@ -7,9 +7,12 @@
 typedef struct {
   sudoku_t sudoku;
   int local_addr;
-  socket_t socket;
+  socket_t serverSocket;
+  socket_t clientSocket;
 } server_t;
 
 void server_init(server_t *self);
+
+void server_run(server_t *self);
 
 #endif
