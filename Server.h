@@ -6,13 +6,15 @@
 
 typedef struct {
   sudoku_t sudoku;
-  int local_addr;
+  int localAddress;
   socket_t serverSocket;
   socket_t clientSocket;
 } server_t;
 
-void server_init(server_t *self);
+void server_init(server_t *self, const char *service);
 
 void server_run(server_t *self);
+
+void server_release();
 
 #endif
