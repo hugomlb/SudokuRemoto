@@ -22,5 +22,5 @@ void server_init(server_t *self){
 }
 
 void server_run(server_t *self) {
-  self -> clientSocket = socket_receive(& self -> serverSocket);
+  self -> clientSocket = socket_acceptClient(& self -> serverSocket);
 }

@@ -16,10 +16,10 @@ void socket_init(socket_t *self, int domain, int type, int protocol);
 
 //int socket_send(socket_t *self, const void *buffer, size_t lenght);
 
-socket_t socket_receive(socket_t *self);
+socket_t socket_acceptClient(socket_t *self);
 
 //**************VER PARAMETROS DE ESTA FUNCION*****************
-void socket_release();
+void socket_release(socket_t *self);
 
 int socket_connect(socket_t *self, const char *host, const char *service);
 

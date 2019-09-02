@@ -21,9 +21,14 @@ void socket_setFd(socket_t *self, int newFd) {
   self -> fd = newFd;
 }
 
-socket_t socket_receive(socket_t *self) {
+socket_t socket_acceptClient(socket_t *self) {
   int clientfd = accept(self -> fd, NULL, NULL);
   socket_t clientSocket;
   socket_setFd(& clientSocket, clientfd);
   return clientSocket;
+}
+
+void socket_release(socket_t *self) {
+  shutdown(self -> fd, SHUT_RDWR);
+  close(self -> fd);
 }
