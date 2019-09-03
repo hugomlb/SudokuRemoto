@@ -43,7 +43,7 @@ void socket_send(socket_t *self, char *buf, int size) {
   int sent = 0;
   int s = 0;
   while (sent < size) {
-    s = send(self -> fd, &buf[sent], size - sent, MSG_NOSIGNAL);
+    s = send(self -> fd, & buf[sent], size - sent, MSG_NOSIGNAL);
     sent += s;
   }
 }
@@ -55,7 +55,6 @@ void socket_receive(socket_t *self, char *buf, int size) {
     s = recv(self -> fd, & buf[received], size - received, 0);
     received += s;
   }
-  printf("%s\n", buf);
 }
 
 void socket_release(socket_t *self) {

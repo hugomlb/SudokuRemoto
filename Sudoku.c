@@ -19,7 +19,7 @@ void sudoku_init(sudoku_t *self) {
   }
 }
 
-void sudoku_addNumberIn(sudoku_t *self, int number, int row, int column) {
+void sudoku_putNumberIn(sudoku_t *self, int number, int row, int column) {
   board_addNumberIn(& (self -> board), number, row - 1, column - 1);
 }
 
