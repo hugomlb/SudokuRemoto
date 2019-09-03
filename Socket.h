@@ -21,6 +21,10 @@ void socket_acceptClient(socket_t *self);
 
 void socket_connect(socket_t *self);
 
+void socket_send(socket_t *self, char *buf, int size);
+
+void socket_receive(socket_t *self, char *buf, int size);
+
 void socket_release(socket_t *self);
 
 #endif

@@ -15,6 +15,8 @@ void server_init(server_t *self, const char *service) {
 
 void server_run(server_t *self) {
   socket_acceptClient(& self -> socket);
+  char buf [1];
+  socket_receive(& self -> socket, buf, 1);
 }
 
 void server_release(server_t *self) {

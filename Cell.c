@@ -12,6 +12,8 @@ void cell_init(cell_t *self, int cellNum) {
 void cell_add(cell_t *self, int cellNum) {
   if (!(self -> clue)) {
     self -> number = cellNum;
+  } else {
+    printf("%s\n", "La celda indicada no es modificable");
   }
 }
 

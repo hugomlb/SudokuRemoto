@@ -36,7 +36,11 @@ void sudoku_checkRules(sudoku_t *self) {
   onRule = sudoku_checkRulesOnRows(self, onRule);
   onRule = sudoku_checkRulesOnColumns(self, onRule);
   onRule = sudoku_checkRulesOnSectors(self, onRule);
-  printf("%d\n", onRule);
+  if (onRule == YES){
+    printf("%s\n", "OK");
+  } else {
+    printf("%s\n", "ERROR");
+  }
 }
 
 int sudoku_checkRulesOnRows(sudoku_t *self, int onRule) {

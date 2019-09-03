@@ -7,6 +7,8 @@
 #include <netdb.h>
 #include <unistd.h>
 
+#include <stdio.h>
+
 void socket_init(socket_t *self, const char *service, char mode) {
   struct addrinfo hints;
   struct addrinfo *ptr;
@@ -35,6 +37,25 @@ void socket_acceptClient(socket_t *self) {
 
 void socket_connect(socket_t *self) {
   connect(self -> fd, self -> ptr -> ai_addr, self -> ptr -> ai_addrlen);
+}
+
+void socket_send(socket_t *self, char *buf, int size) {
+  int sent = 0;
+  int s = 0;
+  while (sent < size) {
+    s = send(self -> fd, &buf[sent], size - sent, MSG_NOSIGNAL);
+    sent += s;
+  }
+}
+
+void socket_receive(socket_t *self, char *buf, int size) {
+  int received = 0;
+  int s;
+  while (received < size) {
+    s = recv(self -> fd, & buf[received], size - received, 0);
+    received += s;
+  }
+  printf("%s\n", buf);
 }
 
 void socket_release(socket_t *self) {

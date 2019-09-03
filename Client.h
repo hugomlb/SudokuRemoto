@@ -9,7 +9,7 @@ typedef struct {
   int remoteAddress;
 } client_t;
 
-void client_init(client_t *self, const char *serviceName, int aPort);
+void client_init(client_t *self, const char *serviceName);
 
 void client_run(client_t *self);
 
