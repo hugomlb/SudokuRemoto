@@ -65,3 +65,7 @@ int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule) {
   }
   return onRule;
 }
+
+void sudoku_release(sudoku_t *self) {
+  //
+}

@@ -9,10 +9,15 @@
 
 void server_init(server_t *self, const char *service) {
   sudoku_init(& (self -> sudoku));
-  socket_init(& (self -> serverSocket), service, 's');
-  socket_bindAndListen(& (self -> serverSocket));
+  socket_init(& (self -> socket), service, 's');
+  socket_bindAndListen(& (self -> socket));
 }
 
 void server_run(server_t *self) {
-  self -> clientSocket = socket_acceptClient(& self -> serverSocket);
+  socket_acceptClient(& self -> socket);
+}
+
+void server_release(server_t *self) {
+  sudoku_release(& (self -> sudoku));
+  socket_release(& (self -> socket));
 }

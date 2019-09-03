@@ -29,20 +29,12 @@ void socket_bindAndListen(socket_t *self) {
   listen(self -> fd, 1);
 }
 
-void socket_setFd(socket_t *self, int newFd) {
-  self -> fd = newFd;
+void socket_acceptClient(socket_t *self) {
+  self -> fd = accept(self -> fd, NULL, NULL);
 }
 
-socket_t socket_acceptClient(socket_t *self) {
-  int clientfd = accept(self -> fd, NULL, NULL);
-  socket_t clientSocket;
-  socket_setFd(& clientSocket, clientfd);
-  return clientSocket;
-}
-
-int socket_connect(socket_t *self, const struct sockaddr *addr, socklen_t adderlen) {
-  int i = connect(self -> fd, addr, adderlen);
-  return i;
+void socket_connect(socket_t *self) {
+  connect(self -> fd, self -> ptr -> ai_addr, self -> ptr -> ai_addrlen);
 }
 
 void socket_release(socket_t *self) {
