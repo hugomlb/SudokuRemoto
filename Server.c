@@ -10,7 +10,7 @@
 void server_init(server_t *self, const char *service) {
   sudoku_init(& (self -> sudoku));
   socket_init(& (self -> serverSocket), service, 's');
-  //socket_bindAndListen(& (self -> serverSocket), ptr -> ai_addr, ptr -> ai_addrlen, 20);
+  socket_bindAndListen(& (self -> serverSocket));
 }
 
 void server_run(server_t *self) {

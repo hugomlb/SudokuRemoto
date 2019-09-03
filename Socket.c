@@ -21,12 +21,12 @@ void socket_init(socket_t *self, const char *service, char mode) {
   //CON CLIENT HAY QUE RECORRER UNA LISTA EH
   getaddrinfo(NULL, service, & hints, & ptr);
   self -> fd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
+  self -> ptr = ptr;
 }
 
-int socket_bindAndListen(socket_t *self, const struct sockaddr *addr, socklen_t adderlen, int backlog) {
-  bind(self -> fd, addr, adderlen);
-  listen(self -> fd, backlog);
-  return 0;
+void socket_bindAndListen(socket_t *self) {
+  bind(self -> fd, self -> ptr -> ai_addr, self -> ptr -> ai_addrlen);
+  listen(self -> fd, 1);
 }
 
 void socket_setFd(socket_t *self, int newFd) {
@@ -46,7 +46,7 @@ int socket_connect(socket_t *self, const struct sockaddr *addr, socklen_t adderl
 }
 
 void socket_release(socket_t *self) {
-  //freeaddrinfo(ptr);
+  freeaddrinfo(self -> ptr);
   shutdown(self -> fd, SHUT_RDWR);
   close(self -> fd);
 }

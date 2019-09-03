@@ -47,7 +47,8 @@ void board_print(board_t *self) {
 cell_t* board_getCellIn(board_t *self, int row, int column) {
   return &(self -> sudokuBoard [row][column]);
 }
-
+//**********************NO APTO PARA VERSION FINAL********************
+//***************HACER RELEASE DE CADA CELDA**************************
 void board_release(board_t *self) {
   //Do Nothing
 }
