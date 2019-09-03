@@ -6,6 +6,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void client_init(client_t *self, const char *serviceName) {
   socket_init(& (self -> socket), serviceName, 'c');
@@ -13,7 +14,17 @@ void client_init(client_t *self, const char *serviceName) {
 }
 
 void client_run(client_t *self) {
-  socket_send(& self -> socket, (char) 1, 1);
+  uint8_t x[3];
+  x[0] = 1;
+  x[1] = 1;
+  x[2] = 1;
+  socket_send(& self -> socket, "P", 1);
+  socket_send(& self -> socket, (char*) &x, 3);
+//  int x = 5;
+//  x = htonl(x);
+//  char* y = (char*)&x;
+//  printf("%d\n", *y);
+//  printf("%d\n", *(y+3));
 }
 
 void client_release(client_t *self) {
