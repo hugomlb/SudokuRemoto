@@ -1,6 +1,6 @@
+#define _POSIX_C_SOURCE 200112L
 #include "Socket.h"
 
-#define _POSIX_C_SOURCE 200112L
 #include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -20,7 +20,7 @@ void socket_init(socket_t *self, const char *service, char mode) {
   } else if (mode == 's') {
       hints.ai_flags = AI_PASSIVE;
   }
-  //CON CLIENT HAY QUE RECORRER UNA LISTA EH
+  //CON CLIENT HAY QUE RECORRER UNA LISTA
   getaddrinfo(NULL, service, & hints, & ptr);
   self -> fd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
   self -> ptr = ptr;
