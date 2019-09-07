@@ -48,13 +48,14 @@ void socket_send(socket_t *self, char *buf, int size) {
   }
 }
 
-void socket_receive(socket_t *self, char *buf, int size) {
+int socket_receive(socket_t *self, char *buf, int size) {
   int received = 0;
   int s;
   while (received < size) {
     s = recv(self -> fd, & buf[received], size - received, 0);
     received += s;
   }
+  return s;
 }
 
 void socket_release(socket_t *self) {

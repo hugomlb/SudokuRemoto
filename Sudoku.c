@@ -1,7 +1,8 @@
 #include "Sudoku.h"
 #include <stdio.h>
-
+#include <string.h>
 #define YES 0
+#define ROW_LIMIT "U---+---+---U---+---+---U---+---+---U\n"
 
 void sudoku_init(sudoku_t *self) {
   board_init(& (self -> board));
@@ -19,28 +20,20 @@ void sudoku_init(sudoku_t *self) {
   }
 }
 
-void sudoku_putNumberIn(sudoku_t *self, int number, int row, int column) {
-  board_addNumberIn(& (self -> board), number, row - 1, column - 1);
+int sudoku_putNumberIn(sudoku_t *self, int number, int row, int column) {
+  return board_addNumberIn(& (self -> board), number, row - 1, column - 1);
 }
 
 void sudoku_restart(sudoku_t *self) {
   board_restart(& (self -> board));
 }
 
-void sudoku_printBoard(sudoku_t *self) {
-  board_print(& (self -> board));
-}
-
-void sudoku_checkRules(sudoku_t *self) {
+int sudoku_checkRules(sudoku_t *self) {
   int onRule = YES;
   onRule = sudoku_checkRulesOnRows(self, onRule);
   onRule = sudoku_checkRulesOnColumns(self, onRule);
   onRule = sudoku_checkRulesOnSectors(self, onRule);
-  if (onRule == YES){
-    printf("%s\n", "OK");
-  } else {
-    printf("%s\n", "ERROR");
-  }
+  return onRule;
 }
 
 int sudoku_checkRulesOnRows(sudoku_t *self, int onRule) {
@@ -70,6 +63,22 @@ int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule) {
   return onRule;
 }
 
+void sudoku_get(sudoku_t *self, char* buf) {
+  strncpy(buf, "U===========U===========U===========U\n", 39);
+  for (int i = 0; i < 9; i += 3) {
+    sudoku_addSectors(self, buf, i);
+    strncat(buf, "U===========U===========U===========U\n", 39);
+  }
+}
+
+void sudoku_addSectors(sudoku_t *self, char *buf, int sectorStart) {
+  for (int i = 0; i < 2; i++) {
+    row_get(& self -> rows[i + sectorStart], buf);
+    strncat(buf, ROW_LIMIT, 39);
+  }
+  row_get(& self -> rows[2 + sectorStart], buf);
+}
+
 void sudoku_release(sudoku_t *self) {
-  //
+  //HACER LOS RELEASE DE TODOS LOS ATRIBUTOS
 }

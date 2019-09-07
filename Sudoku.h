@@ -15,19 +15,23 @@ typedef struct {
 
 void sudoku_init(sudoku_t *self);
 
-void sudoku_putNumberIn(sudoku_t *self, int number, int row, int column);
+int sudoku_putNumberIn(sudoku_t *self, int number, int row, int column);
 
 void sudoku_restart(sudoku_t *self);
 
 void sudoku_printBoard(sudoku_t *self);
 
-void sudoku_checkRules(sudoku_t *self);
+int sudoku_checkRules(sudoku_t *self);
 
 int sudoku_checkRulesOnRows(sudoku_t *self, int onRule);
 
 int sudoku_checkRulesOnColumns(sudoku_t *self, int onRule);
 
 int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule);
+
+void sudoku_get(sudoku_t *self, char* buf);
+
+void sudoku_addSectors(sudoku_t *self, char *buf, int sectorStart);
 
 void sudoku_release(sudoku_t *self);
 

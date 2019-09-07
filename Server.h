@@ -16,7 +16,7 @@ void server_run(server_t *self);
 
 void server_communicationProtocol(server_t *self, char *buf);
 
-void server_receive(server_t *self, int bytesToReceive, char *buf);
+int server_receive(server_t *self, int bytesToReceive, char *buf);
 
 void server_putNumberIn(server_t *self);
 

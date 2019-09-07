@@ -9,11 +9,13 @@ typedef struct {
 
 void board_init(board_t *self);
 
-void board_addNumberIn(board_t *self, int num, int row, int column);
+int board_addNumberIn(board_t *self, int num, int row, int column);
 
 void board_restart(board_t *self);
 
 void board_print(board_t *self);
+
+void board_get(board_t *self, char* buf);
 
 cell_t* board_getCellIn(board_t *self, int row, int column);
 

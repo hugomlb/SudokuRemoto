@@ -2,20 +2,23 @@
 #define  _CLIENT_H
 
 #include "Socket.h"
+#include "ClientProtocol.h"
 
 typedef struct {
-  socket_t socket;
-  int port;
-  int remoteAddress;
+  clientProtocol_t *protocol;
 } client_t;
 
 void client_init(client_t *self, const char *serviceName);
 
 void client_run(client_t *self);
 
-void client_getCommand(client_t *self);
+void client_putNumber(client_t *self, const char *buf);
 
-void client_decodeCommand(client_t *self, const char* input); 
+void client_verify(client_t *self);
+
+void client_reset(client_t *self);
+
+void client_get(client_t *self);
 
 void client_release(client_t *self);
 
