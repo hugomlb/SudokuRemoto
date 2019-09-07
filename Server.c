@@ -37,10 +37,10 @@ void server_communicationProtocol(server_t *self, char *buf) {
       server_verifyRules(self);
       break;
     case 'R':
-      server_resetSudoku(self); //AGREGAR EL SEND DEL MENSAJE A CLIENT
+      server_resetSudoku(self);
       break;
     case 'G':
-      server_get(self); //MANDAR MENSAJE A CLIENT
+      server_get(self);
       break;
   }
 }
@@ -58,7 +58,7 @@ void server_putNumberIn(server_t *self) {
   if (errCheck == ADD_TO_HINT) {
     uint8_t x = 36;
     socket_send(& self -> socket, (char*) &x, 1);
-    socket_send(& self -> socket, "La celda indicado no es modificable", 36);
+    socket_send(& self -> socket, "La celda indicado no es modificable\n", 36);
   }
 }
 
@@ -66,23 +66,29 @@ void server_verifyRules(server_t *self) {
   int errCheck;
   errCheck = sudoku_checkRules(& self -> sudoku);
   if (errCheck == 0) {
-    uint8_t x = 3;
-    socket_send(& self -> socket, (char*) &x, 1);
-    socket_send(& self -> socket, "OK", 3);
+    int x = 3;
+    x = htonl(x);
+    socket_send(& self -> socket, (char*) &x, 4);
+    socket_send(& self -> socket, "OK\n", 3);
   } else {
-    uint8_t x = 6;
-    socket_send(& self -> socket, (char*) &x, 1);
-    socket_send(& self -> socket, "ERROR", 6);
+    int x = 6;
+    x = htonl(x);
+    socket_send(& self -> socket, (char*) &x, 4);
+    socket_send(& self -> socket, "ERROR\n", 6);
   }
 }
 
 void server_resetSudoku(server_t *self) {
   sudoku_restart(& self -> sudoku);
+  server_get(self);
 }
 
 void server_get(server_t *self){
   char buf[723];
   sudoku_get(& self -> sudoku, buf);
+  int x = 723;
+  x = htonl(x);
+  socket_send(& self -> socket, (char*) &x, 4);
   socket_send(& self -> socket, buf, 723);
 }
 

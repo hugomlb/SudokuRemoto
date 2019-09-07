@@ -7,7 +7,7 @@ typedef struct {
   void *client;
 } clientProtocol_t;
 
-void clientProtocol_init(clientProtocol_t *self, const char *serviceName, void *client);
+void clientProtocol_init(clientProtocol_t *self, const char *serviName, void *client);
 
 int clientProtocol_executeCommand(clientProtocol_t *self);
 
@@ -17,5 +17,8 @@ void clientProtocol_receive(clientProtocol_t *self, char *buf, int lenght);
 
 void clientProtocol_send(clientProtocol_t *self, char *buf, int lenght);
 
+void clientProtocol_getAnswer(clientProtocol_t *self);
+
 void clientProtocol_release(clientProtocol_t *self);
+
 #endif

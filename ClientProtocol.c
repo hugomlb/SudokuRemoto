@@ -48,6 +48,15 @@ void clientProtocol_send(clientProtocol_t *self, char *buf, int lenght) {
   socket_send(& self -> socket, buf, lenght);
 }
 
+void clientProtocol_getAnswer(clientProtocol_t *self) {
+  int answerlenght[1];
+  clientProtocol_receive(self, (char*) &answerlenght, 4);
+  int lenght = ntohl(answerlenght[0]);
+  char answer[lenght];
+  clientProtocol_receive(self, answer, lenght);
+  printf("%s", answer);
+}
+
 void clientProtocol_release(clientProtocol_t *self){
   socket_release(& (self -> socket));
 }
