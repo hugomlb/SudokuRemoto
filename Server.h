@@ -3,20 +3,16 @@
 
 #include "Sudoku.h"
 #include "Socket.h"
+#include "ProtocolS.h"
 
 typedef struct {
   sudoku_t sudoku;
-  int localAddress;
-  socket_t socket;
+  protocolS_t *protocol;
 } server_t;
 
 void server_init(server_t *self, const char *service);
 
 void server_run(server_t *self);
-
-void server_communicationProtocol(server_t *self, char *buf);
-
-int server_receive(server_t *self, int bytesToReceive, char *buf);
 
 void server_putNumberIn(server_t *self);
 

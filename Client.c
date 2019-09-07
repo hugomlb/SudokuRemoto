@@ -16,14 +16,10 @@ void client_putNumber(client_t *self, const char *buf) {
   clientProtocol_send(self -> protocol, "P", 1);
   uint8_t x[3];
   x[0] = 1;
-  x[1] = 2;
-  x[2] = 2;
+  x[1] = 1;
+  x[2] = 1;
   clientProtocol_send(self -> protocol, (char*) &x, 3);
-  char answerlenght[1];
-  clientProtocol_receive(self -> protocol, answerlenght, 1);
-  char answer[answerlenght[0]];
-  clientProtocol_receive(self -> protocol, answer, answerlenght[0]);
-  printf("%s", answer);
+  clientProtocol_getAnswer(self -> protocol);
 }
 
 void client_verify(client_t *self) {
