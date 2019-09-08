@@ -2,10 +2,10 @@
 #define  _CLIENT_H
 
 #include "Socket.h"
-#include "ClientProtocol.h"
+#include "ProtocolC.h"
 
 typedef struct {
-  clientProtocol_t protocol;
+  protocolC_t protocol;
 } client_t;
 
 void client_init(client_t *self, const char *serviceName);
