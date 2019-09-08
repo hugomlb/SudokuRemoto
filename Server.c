@@ -1,6 +1,6 @@
 #include "Server.h"
 #include <stdio.h>
-#define ADD_TO_HINT -1
+#define ERROR 1
 #define NO 1
 #define YES 0
 
@@ -23,7 +23,7 @@ void server_putNumberIn(server_t *self) {
   int errCheck;
   protocolS_receive(&self -> protocol,(char*) buf, 3);
   errCheck = sudoku_putNumberIn(&self -> sudoku, *buf, *(buf + 1), *(buf + 2));
-  if (errCheck == ADD_TO_HINT) {
+  if (errCheck == ERROR) {
     protocolS_send(&self -> protocol, "La celda indicado no es modificable\n", 37);
   } else {
     server_get(self);

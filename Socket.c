@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <errno.h>
 
 void socket_init(socket_t *self, const char *service, char mode) {
   struct addrinfo hints;
@@ -19,12 +20,14 @@ void socket_init(socket_t *self, const char *service, char mode) {
   } else if (mode == 's') {
       hints.ai_flags = AI_PASSIVE;
   }
-  //CON CLIENT HAY QUE RECORRER UNA LISTA
-  getaddrinfo(NULL, service, &hints, &ptr);
-
+  //CON CLIENT HAY QUE RECORRER UNA LISTA, PARA HACER EL BIND EN EL SERVER TAMB
+  int errcheck = getaddrinfo(NULL, service, &hints, &ptr);
+  if (errcheck != 0) {
+    printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
+  }
   int aFd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
-  if (aFd < 0) {
-    printf("%s\n", "error");
+  if (aFd == -1) {
+    printf("Error: %s\n", strerror(errno));
   }
   self -> fd = aFd;
   freeaddrinfo(ptr);
@@ -37,14 +40,27 @@ void socket_bindAndListen(socket_t *self, const char*service) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
-  getaddrinfo(NULL, service, & hints, & ptr);
-  bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+  int errcheck = getaddrinfo(NULL, service, &hints, &ptr);
+  if (errcheck != 0) {
+    printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
+  }
+  errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+  if (errcheck == -1) {
+    printf("Error: %s\n", strerror(errno));
+  }
   freeaddrinfo(ptr);
-  listen(self -> fd, 1);
+  errcheck = listen(self -> fd, 1);
+  if (errcheck == -1) {
+    printf("Error: %s\n", strerror(errno));
+  }
 }
 
 int socket_acceptClient(socket_t *self) {
-  return accept(self -> fd, NULL, NULL);
+  int fd = accept(self -> fd, NULL, NULL);
+  if (fd == -1) {
+    printf("Error: %s\n", strerror(errno));
+  }
+  return fd;
 }
 
 void socket_setFd(socket_t *self, int afd) {
@@ -58,8 +74,14 @@ void socket_connect(socket_t *self, char* host, const char* service) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = 0;
-  getaddrinfo(host, service, & hints, & ptr);
-  connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+  int errcheck = getaddrinfo(host, service, & hints, & ptr);
+  if (errcheck != 0) {
+    printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
+  }
+  errcheck = connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+  if (errcheck == -1) {
+    printf("Error: %s\n", strerror(errno));
+  }
   freeaddrinfo(ptr);
 }
 
@@ -68,6 +90,9 @@ void socket_send(socket_t *self, char *buf, int size) {
   int s = 0;
   while (sent < size) {
     s = send(self -> fd, & buf[sent], size - sent, MSG_NOSIGNAL);
+    if (s == -1) {
+      printf("Error: %s\n", strerror(errno));
+    }
     sent += s;
   }
 }
@@ -80,6 +105,8 @@ int socket_receive(socket_t *self, char *buf, int size) {
     s = recv(self -> fd, & buf[received], size - received, 0);
     if (s == 0) {
       socketValid = false;
+    } else if (s == -1) {
+      printf("Error: %s\n", strerror(errno));
     }
     received += s;
   }

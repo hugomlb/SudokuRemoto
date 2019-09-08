@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #define ASCII_CERO 48
-
+#define ERROR 1
+#define OK 0
 void cell_init(cell_t *self, int cellNum) {
     self -> clue = false;
     cell_add(self, cellNum);
@@ -14,9 +15,9 @@ void cell_init(cell_t *self, int cellNum) {
 int cell_add(cell_t *self, int cellNum) {
   if (!(self -> clue)) {
     self -> number = cellNum;
-    return 0;
+    return OK;
   } else {
-    return -1;
+    return ERROR;
   }
 }
 

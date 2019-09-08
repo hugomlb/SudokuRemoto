@@ -7,7 +7,7 @@ typedef struct {
   cell_t sudokuBoard[9][9];
 } board_t;
 
-void board_init(board_t *self);
+int board_init(board_t *self);
 
 int board_addNumberIn(board_t *self, int num, int row, int column);
 
