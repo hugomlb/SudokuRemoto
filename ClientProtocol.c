@@ -14,7 +14,10 @@ void clientProtocol_init(clientProtocol_t *self, const char *servName, void *aCl
 int clientProtocol_executeCommand(clientProtocol_t *self) {
   char *input = NULL;
   size_t size = 0;
-  getline(& input, & size, stdin); //SI FALLA TE DEVUELVE -1 IGUAL LIBERAR MEMORIA
+  int errCheck = getline(& input, & size, stdin);
+  if (errCheck == -1) {
+    printf("%s\n", "Error en getline");
+  }
   int x = clientProtocol_decodeCommand(self, input);
   free(input);
   return x;
