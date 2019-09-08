@@ -1,13 +1,12 @@
 #define _POSIX_C_SOURCE 200112L
 #include "Socket.h"
-
+#include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <stdbool.h>
-#include <stdio.h>
 
 void socket_init(socket_t *self, const char *service, char mode) {
   struct addrinfo hints;
@@ -21,8 +20,13 @@ void socket_init(socket_t *self, const char *service, char mode) {
       hints.ai_flags = AI_PASSIVE;
   }
   //CON CLIENT HAY QUE RECORRER UNA LISTA
-  getaddrinfo(NULL, service, & hints, & ptr);
-  self -> fd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
+  getaddrinfo(NULL, service, &hints, &ptr);
+
+  int aFd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
+  if (aFd < 0) {
+    printf("%s\n", "error");
+  }
+  self -> fd = aFd;
   freeaddrinfo(ptr);
 }
 
@@ -33,8 +37,7 @@ void socket_bindAndListen(socket_t *self, const char*service) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
-  int afd = getaddrinfo(NULL, service, & hints, & ptr);
-  printf("%d\n", afd);
+  getaddrinfo(NULL, service, & hints, & ptr);
   bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
   freeaddrinfo(ptr);
   listen(self -> fd, 1);
@@ -55,8 +58,7 @@ void socket_connect(socket_t *self, char* host, const char* service) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = 0;
-  int afd = getaddrinfo(host, service, & hints, & ptr);
-  printf("%d\n", afd);
+  getaddrinfo(host, service, & hints, & ptr);
   connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
   freeaddrinfo(ptr);
 }

@@ -6,8 +6,9 @@
 #include <stdlib.h>
 
 void protocolS_init(protocolS_t *self, const char *service, void *aServer) {
-  socket_init(& self -> s, service, 's');
-  socket_bindAndListen(& self -> s, service);
+  char mode = 's';
+  socket_init(&self -> s, service, mode);
+  socket_bindAndListen(&self -> s, service);
   int fd = socket_acceptClient(& self -> s);
   socket_setFd(& self -> socket, fd);
   self -> server = aServer;

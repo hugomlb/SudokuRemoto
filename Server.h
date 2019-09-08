@@ -7,7 +7,7 @@
 
 typedef struct {
   sudoku_t sudoku;
-  protocolS_t *protocol;
+  protocolS_t protocol;
 } server_t;
 
 void server_init(server_t *self, const char *service);

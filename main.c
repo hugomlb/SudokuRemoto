@@ -7,7 +7,7 @@ int main(int argc, char const *argv[]) {
   server_init(& server, "7777");
   server_run(& server);
   server_release(& server);
-  /*
+/*
   if(strcmp(argv[1], "client") == 0) {
     client_t client;
     client_init(&client, "7777");
