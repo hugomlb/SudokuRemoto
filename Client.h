@@ -5,7 +5,7 @@
 #include "ClientProtocol.h"
 
 typedef struct {
-  clientProtocol_t *protocol;
+  clientProtocol_t protocol;
 } client_t;
 
 void client_init(client_t *self, const char *serviceName);
