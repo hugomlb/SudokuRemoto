@@ -9,16 +9,17 @@
 
 typedef struct {
   int fd;
-  struct addrinfo *ptr;
 } socket_t;
 
 void socket_init(socket_t *self, const char *service, char mode);
 
-void socket_bindAndListen(socket_t *self);
+void socket_bindAndListen(socket_t *self, const char* service);
 
-void socket_acceptClient(socket_t *self);
+int socket_acceptClient(socket_t *self);
 
-void socket_connect(socket_t *self);
+void socket_connect(socket_t *self, char* host, const char* service);
+
+void socket_setFd(socket_t *self, int aFd);
 
 void socket_send(socket_t *self, char *buf, int size);
 

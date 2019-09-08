@@ -13,7 +13,7 @@ void server_run(server_t *self) {
   int socketclosed = 1;
   while (socketclosed != 0) {
     char buf [1];
-    protocolS_receive(self -> protocol, buf, 1);
+    socketclosed = protocolS_receive(self -> protocol, buf, 1);
     protocolS_decodeCommand(self -> protocol, buf);
   }
 }

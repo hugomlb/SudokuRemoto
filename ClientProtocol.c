@@ -7,7 +7,7 @@
 
 void clientProtocol_init(clientProtocol_t *self, const char *servName, void *aClient) {
   socket_init(& self -> socket, servName, 'c');
-  socket_connect(& self -> socket);
+  socket_connect(& self -> socket, "localhost", servName);
   self -> client = aClient;
 }
 

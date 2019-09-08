@@ -5,6 +5,7 @@
 
 typedef struct {
   socket_t socket;
+  socket_t s;
   void *server;
 } protocolS_t;
 
