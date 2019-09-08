@@ -53,9 +53,9 @@ void protocolC_send(protocolC_t *self, char *buf, int lenght) {
 }
 
 void protocolC_getAnswer(protocolC_t *self) {
-  int answerlenght[1];
+  unsigned int answerlenght[1];
   protocolC_receive(self, (char*) &answerlenght, 4);
-  int lenght = ntohl(answerlenght[0]);
+  unsigned int lenght = ntohl(answerlenght[0]);
   char answer[lenght];
   protocolC_receive(self, answer, lenght);
   printf("%s", answer);

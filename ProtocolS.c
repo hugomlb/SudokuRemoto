@@ -38,8 +38,8 @@ int protocolS_receive(protocolS_t *self, char *buf, int bytesToReceive) {
   return socket_receive(&self -> socket, buf, bytesToReceive);
 }
 
-void protocolS_send(protocolS_t *self, char *buf, int lenght) {
-  int x = htonl(lenght);
+void protocolS_send(protocolS_t *self, char *buf, unsigned int lenght) {
+  unsigned int x = htonl(lenght);
   socket_send(&self -> socket, (char*) &x, 4);
   socket_send(&self -> socket, buf, lenght);
 }

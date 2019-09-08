@@ -15,7 +15,7 @@ void protocolS_decodeCommand(protocolS_t *self, char *buf);
 
 int protocolS_receive(protocolS_t *self, char *buf, int bytesToReceive);
 
-void protocolS_send(protocolS_t *self, char *buf, int lenght);
+void protocolS_send(protocolS_t *self, char *buf, unsigned int lenght);
 
 void protocolS_release(protocolS_t *self);
 
