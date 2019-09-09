@@ -30,8 +30,8 @@ int client_executeCommand(client_t *self) {
   char *input = NULL;
   size_t size = 0;
   int errCheck = getline(& input, & size, stdin);
-  if (errCheck == -1) {
-    printf("%s\n", "Error en getline");
+  if (feof(stdin)) {
+    errCheck = EXIT;
   } else{
     errCheck = client_decodeCommand(self, input);
   }

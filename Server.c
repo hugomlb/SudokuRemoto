@@ -26,6 +26,9 @@ int server_run(server_t *self) {
     }
   }
   server_release(self);
+  if (socketState == SOCKET_CLOSED) {
+    socketState = OK;
+  }
   return socketState;
 }
 
