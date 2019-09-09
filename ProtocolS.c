@@ -10,23 +10,23 @@
 #define SOCKET_CLOSED 2
 
 void protocolS_init(protocolS_t *self, int fd) {
-  socket_setFd(& self -> peerSocket, fd);
+  socketC_setFd(& self -> peerSocket, fd);
 }
 
 int protocolS_receive(protocolS_t *self, char *buf, int bytesToReceive) {
   buf[bytesToReceive - 1] = 0;
-  return socket_receive(&self -> peerSocket, buf, bytesToReceive);
+  return socketC_receive(&self -> peerSocket, buf, bytesToReceive);
 }
 
 int protocolS_send(protocolS_t *self, char *buf, unsigned int lenght) {
   unsigned int x = htonl(lenght);
-  int returnValue = socket_send(&self -> peerSocket, (char*) &x, 4);
+  int returnValue = socketC_send(&self -> peerSocket, (char*) &x, 4);
   if (returnValue != ERROR && returnValue != SOCKET_CLOSED) {
-    returnValue = socket_send(&self -> peerSocket, buf, lenght);
+    returnValue = socketC_send(&self -> peerSocket, buf, lenght);
   }
   return returnValue;
 }
 
 void protocolS_release(protocolS_t *self) {
-  socket_release(&self -> peerSocket);
+  socketC_release(&self -> peerSocket);
 }

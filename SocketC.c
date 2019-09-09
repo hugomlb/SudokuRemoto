@@ -70,6 +70,10 @@ int socketC_send(socketC_t *self, char *buf, int size) {
   return returnValue;
 }
 
+void socketC_setFd(socketC_t *self, int afd) {
+  self -> fd = afd;
+}
+
 int socketC_receive(socketC_t *self, char *buf, int size) {
   int received = 0;
   int s;

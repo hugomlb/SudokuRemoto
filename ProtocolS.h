@@ -1,10 +1,10 @@
 #ifndef _PROTOCOLS_H_
 #define  _PROTOCOLS_H_
 
-#include "Socket.h"
+#include "SocketC.h"
 
 typedef struct {
-  socket_t peerSocket;
+  socketC_t peerSocket;
   void *server;
 } protocolS_t;
 
