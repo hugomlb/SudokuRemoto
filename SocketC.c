@@ -33,20 +33,22 @@ int socketC_init(socketC_t *self, const char* host, const char* service) {
 
 void socketC_connect(socketC_t *self, struct addrinfo *result) {
   bool conected = false;
+  int aFd = -1;
   struct addrinfo *ptr;
   for (ptr = result; ptr != NULL && conected == false; ptr = ptr -> ai_next) {
-    self -> fd = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
-    if (self -> fd == -1) {
+    aFd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
+    if (aFd == -1) {
          printf("Error: %s\n", strerror(errno));
       } else{
-        int errcheck = connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+        int errcheck = connect(aFd, ptr -> ai_addr, ptr -> ai_addrlen);
         if (errcheck == -1) {
           printf("Error: %s\n", strerror(errno));
-          close(self -> fd);
+          close(aFd);
         }
-        conected = (self -> fd != -1);
+        conected = (aFd != -1);
       }
   }
+  self -> fd = aFd;
 }
 
 int socketC_send(socketC_t *self, char *buf, int size) {

@@ -20,12 +20,7 @@ int socketS_init(socketS_t *self, const char *service, char mode) {
   memset(&hints, 0, sizeof(struct addrinfo));
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
-  if (mode == 'c') {
-      hints.ai_flags = 0;
-  } else if (mode == 's') {
-      hints.ai_flags = AI_PASSIVE;
-  }
-  //CON CLIENT HAY QUE RECORRER UNA LISTA, PARA HACER EL BIND EN EL SERVER TAMB
+  hints.ai_flags = AI_PASSIVE;
   int errcheck = getaddrinfo(NULL, service, &hints, &ptr);
   if (errcheck != 0) {
     printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
@@ -41,31 +36,17 @@ int socketS_init(socketS_t *self, const char *service, char mode) {
   return returnValue;
 }
 
-int socketS_bindAndListen(socketS_t *self, const char*service) {
-  struct addrinfo hints;
-  struct addrinfo *ptr;
-  int returnValue = OK;
-  memset(&hints, 0, sizeof(struct addrinfo));
-  hints.ai_family = AF_INET;
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_flags = AI_PASSIVE;
-  int errcheck = getaddrinfo(NULL, service, &hints, &ptr);
-  if (errcheck != 0) {
-    printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
-    returnValue = ERROR;
-  }
-  errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+void socketS_bindAndListen(socketS_t *self, struct addrinfo *result) {
+  struct addrinfo *ptr = result;
+
+  int errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
   if (errcheck == -1) {
     printf("Error: %s\n", strerror(errno));
-    returnValue = ERROR;
   }
-  freeaddrinfo(ptr);
   errcheck = listen(self -> fd, 1);
   if (errcheck == -1) {
     printf("Error: %s\n", strerror(errno));
-    returnValue = ERROR;
   }
-  return returnValue;
 }
 
 int socketS_acceptClient(socketS_t *self) {
