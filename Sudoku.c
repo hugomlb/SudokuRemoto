@@ -3,7 +3,7 @@
 #include <string.h>
 #define YES 0
 #define ROW_LIMIT "U---+---+---U---+---+---U---+---+---U\n"
-
+#define SECTOR_LIMIT "U===========U===========U===========U\n"
 void sudoku_init(sudoku_t *self) {
   board_init(& (self -> board));
 
@@ -64,10 +64,10 @@ int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule) {
 }
 
 void sudoku_get(sudoku_t *self, char* buf) {
-  strncpy(buf, "U===========U===========U===========U\n", 39);
+  strncpy(buf, SECTOR_LIMIT, 39);
   for (int i = 0; i < 9; i += 3) {
     sudoku_addSectors(self, buf, i);
-    strncat(buf, "U===========U===========U===========U\n", 39);
+    strncat(buf, SECTOR_LIMIT, 39);
   }
 }
 

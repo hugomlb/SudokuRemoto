@@ -56,7 +56,7 @@ int socketC_send(socketC_t *self, char *buf, int size) {
   bool socketValid = true;
   int returnValue = OK;
   while (sent < size && socketValid) {
-    s = send(self -> fd, & buf[sent], size - sent, MSG_NOSIGNAL);
+    s = send(self -> fd, &buf[sent], size - sent, MSG_NOSIGNAL);
     if (s == 0) {
       socketValid = false;
       returnValue = SOCKET_CLOSED;
@@ -80,7 +80,7 @@ int socketC_receive(socketC_t *self, char *buf, int size) {
   bool socketValid = true;
   int returnValue = OK;
   while (received < size && socketValid) {
-    s = recv(self -> fd, & buf[received], size - received, 0);
+    s = recv(self -> fd, &buf[received], size - received, 0);
     if (s == 0) {
       socketValid = false;
       returnValue = SOCKET_CLOSED;

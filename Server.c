@@ -6,6 +6,7 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 #define ADD_TO_HINT -1
+#define UNMODIFIABLE "La celda indicado no es modificable\n"
 
 int server_init(server_t *self, const char *service) {
   sudoku_init(&self -> sudoku);
@@ -65,7 +66,7 @@ void server_put(server_t *self) {
   if ((returnValue != SOCKET_CLOSED) || (returnValue != ERROR)) {
     answ = sudoku_putNumberIn(&self -> sudoku, *buf, *(buf + 1), *(buf + 2));
     if (answ == ADD_TO_HINT) {
-      protocolS_send(&self -> protocol, "La celda indicado no es modificable\n", 37);
+      protocolS_send(&self -> protocol, UNMODIFIABLE, 37);
     } else {
       server_get(self);
     }
