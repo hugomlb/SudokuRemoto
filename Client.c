@@ -65,10 +65,11 @@ void client_decodePut(client_t *self, char *input) {
   numberToAdd = strtok_r(NULL, " ", &saveptr);
   in = strtok_r(NULL, " ", &saveptr);
   rowAndColumn = strtok_r(NULL, " ", &saveptr);
-  if ((strcmp(put, "put") == 0) && strcmp(in, "in") == 0){
+  if ((strcmp(put, "put") == 0) && strcmp(in, "in") == 0) {
     put = strtok_r(NULL, " ", &saveptr);
     if (put == NULL) {
       put = strtok_r(rowAndColumn, ",", &saveptr);
+      put = strtok_r(NULL, "\n", &saveptr);
       client_putNumber(self, numberToAdd, rowAndColumn, put);
     }
   }
