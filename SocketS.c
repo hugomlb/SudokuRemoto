@@ -36,9 +36,16 @@ int socketS_bindAndListen(socketS_t *self, const char *service) {
     printf("Error: %s\n", strerror(errno));
     returnValue = ERROR;
   }
+  int val = 1;
+  int errCheck = setsockopt(aFd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+   if (errCheck == -1) {
+      printf("Error: %s\n", strerror(errno));
+      close(aFd);
+      returnValue = ERROR;
+   }
   self -> fd = aFd;
   for (ptr = result; ptr != NULL && binded == false; ptr = ptr -> ai_next) {
-    int errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+    errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
     if (errcheck == -1) {
       printf("Error: %s\n", strerror(errno));
     }
