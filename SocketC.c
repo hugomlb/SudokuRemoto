@@ -14,7 +14,6 @@
 #define SOCKET_CLOSED 2
 
 void socketC_init(socketC_t *self) {
-
 }
 
 int socketC_connect(socketC_t *self, const char* host, const char* service) {

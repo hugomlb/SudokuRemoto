@@ -1,9 +1,10 @@
 #define _POSIX_C_SOURCE  200809L
 #include "Client.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <stdlib.h>
+
 #define ERROR 1
 #define OK 0
 #define SOCKET_CLOSED 2
@@ -39,10 +40,10 @@ int client_executeCommand(client_t *self) {
 }
 
 int client_decodeCommand(client_t *self, char *input) {
-  if(strncmp(input, "put", 3) == 0){
+  if (strncmp(input, "put", 3) == 0) {
     client_decodePut(self, input);
 
-  } else if(strcmp(input, "verify\n") == 0) {
+  } else if (strcmp(input, "verify\n") == 0) {
     client_verify(self);
 
   } else if (strcmp(input, "reset\n") == 0) {
@@ -51,7 +52,7 @@ int client_decodeCommand(client_t *self, char *input) {
   } else if (strcmp(input, "get\n") == 0) {
     client_get(self);
 
-  } else if(strcmp(input, "exit\n") == 0) {
+  } else if (strcmp(input, "exit\n") == 0) {
     return EXIT;
   }
   return 0;
@@ -59,14 +60,15 @@ int client_decodeCommand(client_t *self, char *input) {
 
 void client_decodePut(client_t *self, char *input) {
   char *put, *numberToAdd, *in, *rowAndColumn;
-  put = strtok(input, " ");
-  numberToAdd = strtok(NULL, " ");
-  in = strtok(NULL, " ");
-  rowAndColumn = strtok(NULL, " ");
+  char * saveptr;
+  put = strtok_r(input, " ", &saveptr);
+  numberToAdd = strtok_r(NULL, " ", &saveptr);
+  in = strtok_r(NULL, " ", &saveptr);
+  rowAndColumn = strtok_r(NULL, " ", &saveptr);
   if ((strcmp(put, "put") == 0) && strcmp(in, "in") == 0){
-    put = strtok(NULL, " ");
+    put = strtok_r(NULL, " ", &saveptr);
     if (put == NULL) {
-      put = strtok(rowAndColumn, ",");
+      put = strtok_r(rowAndColumn, ",", &saveptr);
       client_putNumber(self, numberToAdd, rowAndColumn, put);
     }
   }

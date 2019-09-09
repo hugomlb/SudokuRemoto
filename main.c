@@ -13,14 +13,14 @@
 
 int main(int argc, char const *argv[]) {
   int returnValue = OK;
-  if(argc == PARAMETERS_CLIENT && strcmp(argv[1], "client") == 0) {
+  if (argc == PARAMETERS_CLIENT && strcmp(argv[1], "client") == 0) {
     client_t client;
     returnValue = client_init(&client, argv[2], argv[3]);
-    if(returnValue == OK) {
+    if (returnValue == OK) {
       returnValue = client_run(&client);
       client_release(&client);
     }
-  } else if(argc == PARAMETERS_SERVER && strcmp(argv[1], "server") == 0) {
+  } else if (argc == PARAMETERS_SERVER && strcmp(argv[1], "server") == 0) {
     server_t server;
     returnValue = server_init(&server, argv[2]);
     if (returnValue == OK) {

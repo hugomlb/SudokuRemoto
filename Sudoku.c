@@ -13,7 +13,7 @@ void sudoku_init(sudoku_t *self) {
   }
   int counter = 0;
   for (int i = 0; i < 9; i += 3) {
-    for(int j = 0; j < 9; j += 3) {
+    for (int j = 0; j < 9; j += 3) {
       sector_init(& (self -> sectors[counter]), & (self -> board), i, j);
       counter ++;
     }

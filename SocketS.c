@@ -14,7 +14,6 @@
 #define SOCKET_CLOSED 2
 
 void socketS_init(socketS_t *self) {
-
 }
 
 int socketS_bindAndListen(socketS_t *self, const char *service) {
@@ -48,6 +47,7 @@ int socketS_bindAndListen(socketS_t *self, const char *service) {
     errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
     if (errcheck == -1) {
       printf("Error: %s\n", strerror(errno));
+      close(errCheck);
     }
     binded = (errcheck != -1);
   }
@@ -55,7 +55,7 @@ int socketS_bindAndListen(socketS_t *self, const char *service) {
   if (errcheck == -1) {
     printf("Error: %s\n", strerror(errno));
   }
-  freeaddrinfo(ptr);
+  freeaddrinfo(rst);
   return returnValue;
 }
 
