@@ -5,16 +5,10 @@
 #define ASCII_CERO 48
 #define ROW_SIZE 9
 #define COLUMN_SIZE 9
-#define ERROR 1
-#include <errno.h>
 
-int board_init(board_t *self) {
+void board_init(board_t *self) {
   FILE* boardFile;
   boardFile = fopen("board.txt", "r");
-  if (boardFile == NULL) {
-    printf("Error: %s\n", strerror(errno));
-    return ERROR;
-  }
   int asciiNumber = fgetc(boardFile);
   for (int row = 0; row < ROW_SIZE; row ++) {
     for (int column = 0; column < COLUMN_SIZE; column ++) {
@@ -25,12 +19,7 @@ int board_init(board_t *self) {
       asciiNumber = fgetc(boardFile);
     }
   }
-  int errcheck = fclose(boardFile);
-  if (errcheck == EOF) {
-    printf("Error: %s\n", strerror(errno));
-    return ERROR;
-  }
-  return 0;
+  fclose(boardFile);
 }
 
 int board_addNumberIn(board_t *self, int num, int row, int column) {

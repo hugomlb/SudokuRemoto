@@ -8,13 +8,18 @@
 typedef struct {
   sudoku_t sudoku;
   protocolS_t protocol;
+  socket_t socket;
 } server_t;
 
-void server_init(server_t *self, const char *service);
+int server_init(server_t *self, const char *service);
 
-void server_run(server_t *self);
+int server_run(server_t *self);
 
-void server_putNumberIn(server_t *self);
+void server_decodeCommand(server_t *self, char *buf);
+
+int server_accept(server_t *self);
+
+void server_put(server_t *self);
 
 void server_verifyRules(server_t *self);
 

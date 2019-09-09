@@ -8,9 +8,13 @@ typedef struct {
   protocolC_t protocol;
 } client_t;
 
-void client_init(client_t *self, const char *serviceName);
+int client_init(client_t *self, const char *host, const char *service);
 
-void client_run(client_t *self);
+int client_run(client_t *self);
+
+int client_decodeCommand(client_t *self, const char *input);
+
+int client_executeCommand(client_t *self);
 
 void client_putNumber(client_t *self, const char *buf);
 
