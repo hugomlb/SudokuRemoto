@@ -78,23 +78,26 @@ int socket_acceptClient(socket_t *self) {
 
 int socket_connect(socket_t *self, const char* host, const char* service) {
   struct addrinfo hints;
-  struct addrinfo *ptr;
+  struct addrinfo *ptr, *result;
+  bool conected = false;
   int returnValue = OK;
   memset(&hints, 0, sizeof(struct addrinfo));
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = 0;
-  int errcheck = getaddrinfo(host, service, & hints, & ptr);
+  int errcheck = getaddrinfo(host, service, & hints, & result);
   if (errcheck != 0) {
     printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
     returnValue = ERROR;
   }
-  errcheck = connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
-  if (errcheck == -1) {
-    printf("Error: %s\n", strerror(errno));
-    returnValue = ERROR;
+  for (ptr = result; ptr != NULL && conected == false; ptr = ptr -> ai_next) {
+    errcheck = connect(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+    if (errcheck == -1) {
+      printf("Error: %s\n", strerror(errno));
+      returnValue = ERROR;
+    }
   }
-  freeaddrinfo(ptr);
+  freeaddrinfo(result);
   return returnValue;
 }
 
@@ -121,20 +124,7 @@ int socket_send(socket_t *self, char *buf, int size) {
   }
   return returnValue;
 }
-/*int socket_receive(socket_t *self, char *buf, int size) {
-  int received = 0;
-  int s;
-  bool socketValid = true;
-  while (received < size && socketValid) {
-    s = recv(self -> fd, & buf[received], size - received, 0);
-    if (s == 0) {
-      socketValid = false;
-    }
-    received += s;
-  }
-  return s;
-}
-*/
+
 int socket_receive(socket_t *self, char *buf, int size) {
   int received = 0;
   int s;

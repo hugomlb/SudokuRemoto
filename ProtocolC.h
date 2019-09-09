@@ -1,17 +1,13 @@
 #ifndef _PROTOCOLC_H_
 #define  _PROTOCOLC_H_
-#include "Socket.h"
+#include "SocketC.h"
 
 typedef struct {
-  socket_t socket;
+  socketC_t socket;
   char answer[723];
 } protocolC_t;
 
 int protocolC_init(protocolC_t *self, const char *host, const char *serv);
-
-int protocolC_executeCommand(protocolC_t *self);
-
-int protocolC_decodeCommand(protocolC_t *self, const char *input);
 
 int protocolC_receive(protocolC_t *self, char *buf, int lenght);
 
