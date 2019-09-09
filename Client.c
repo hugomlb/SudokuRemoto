@@ -38,9 +38,9 @@ int client_executeCommand(client_t *self) {
   return errCheck;
 }
 
-int client_decodeCommand(client_t *self, const char *input) {
-  if(strcmp(input, "put\n") == 0){
-    client_putNumber(self, input);
+int client_decodeCommand(client_t *self, char *input) {
+  if(strncmp(input, "put", 3) == 0){
+    client_decodePut(self, input);
 
   } else if(strcmp(input, "verify\n") == 0) {
     client_verify(self);
@@ -57,13 +57,28 @@ int client_decodeCommand(client_t *self, const char *input) {
   return 0;
 }
 
-void client_putNumber(client_t *self, const char *buf) {
+void client_decodePut(client_t *self, char *input) {
+  char *put, *numberToAdd, *in, *rowAndColumn;
+  put = strtok(input, " ");
+  numberToAdd = strtok(NULL, " ");
+  in = strtok(NULL, " ");
+  rowAndColumn = strtok(NULL, " ");
+  if ((strcmp(put, "put") == 0) && strcmp(in, "in") == 0){
+    put = strtok(NULL, " ");
+    if (put == NULL) {
+      put = strtok(rowAndColumn, ",");
+      client_putNumber(self, numberToAdd, rowAndColumn, put);
+    }
+  }
+}
+
+void client_putNumber(client_t *self, char *number, char *row, char *column) {
   int socketState = protocolC_send(&self -> protocol, "P", 1);
   if (socketState == OK) {
     uint8_t x[3];
-    x[0] = 1;
-    x[1] = 1;
-    x[2] = 1;
+    x[0] = atoi(number);
+    x[1] = atoi(row);
+    x[2] = atoi(column);
     socketState = protocolC_send(&self -> protocol, (char*) &x, 3);
     if (socketState == OK) {
       socketState = protocolC_getAnswer(&self -> protocol);
