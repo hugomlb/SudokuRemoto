@@ -13,9 +13,15 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 
-int socketC_init(socketC_t *self, const char* host, const char* service) {
+void socketC_init(socketC_t *self) {
+
+}
+
+int socketC_connect(socketC_t *self, const char* host, const char* service) {
   struct addrinfo hints;
-  struct addrinfo *result;
+  struct addrinfo *result, *ptr;
+  bool conected = false;
+  int aFd = -1;
   int returnValue = OK;
   memset(&hints, 0, sizeof(struct addrinfo));
   hints.ai_family = AF_INET;
@@ -26,15 +32,6 @@ int socketC_init(socketC_t *self, const char* host, const char* service) {
     printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
     returnValue = ERROR;
   }
-  socketC_connect(self, result);
-  freeaddrinfo(result);
-  return returnValue;
-}
-
-void socketC_connect(socketC_t *self, struct addrinfo *result) {
-  bool conected = false;
-  int aFd = -1;
-  struct addrinfo *ptr;
   for (ptr = result; ptr != NULL && conected == false; ptr = ptr -> ai_next) {
     aFd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
     if (aFd == -1) {
@@ -49,6 +46,8 @@ void socketC_connect(socketC_t *self, struct addrinfo *result) {
       }
   }
   self -> fd = aFd;
+  freeaddrinfo(result);
+  return returnValue;
 }
 
 int socketC_send(socketC_t *self, char *buf, int size) {

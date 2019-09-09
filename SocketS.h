@@ -8,9 +8,9 @@ typedef struct {
   int fd;
 } socketS_t;
 
-int socketS_init(socketS_t *self, const char *service, char mode);
+void socketS_init(socketS_t *self);
 
-void socketS_bindAndListen(socketS_t *self, struct addrinfo *result);
+int socketS_bindAndListen(socketS_t *self, const char *service);
 
 int socketS_acceptClient(socketS_t *self);
 

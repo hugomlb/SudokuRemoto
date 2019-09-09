@@ -13,40 +13,43 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 
-int socketS_init(socketS_t *self, const char *service, char mode) {
+void socketS_init(socketS_t *self) {
+
+}
+
+int socketS_bindAndListen(socketS_t *self, const char *service) {
   struct addrinfo hints;
-  struct addrinfo *ptr;
+  struct addrinfo *ptr, *result;
   int returnValue = OK;
+  bool binded = false;
   memset(&hints, 0, sizeof(struct addrinfo));
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
-  int errcheck = getaddrinfo(NULL, service, &hints, &ptr);
+  int errcheck = getaddrinfo(NULL, service, &hints, &result);
   if (errcheck != 0) {
     printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
     returnValue = ERROR;
   }
-  int aFd = socket(ptr -> ai_family, ptr -> ai_socktype, ptr -> ai_protocol);
+  int aFd = socket(result -> ai_family, result -> ai_socktype, result -> ai_protocol);
   if (aFd == -1) {
     printf("Error: %s\n", strerror(errno));
     returnValue = ERROR;
   }
   self -> fd = aFd;
-  freeaddrinfo(ptr);
-  return returnValue;
-}
-
-void socketS_bindAndListen(socketS_t *self, struct addrinfo *result) {
-  struct addrinfo *ptr = result;
-
-  int errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
-  if (errcheck == -1) {
-    printf("Error: %s\n", strerror(errno));
+  for (ptr = result; ptr != NULL && binded == false; ptr = ptr -> ai_next) {
+    int errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+    if (errcheck == -1) {
+      printf("Error: %s\n", strerror(errno));
+    }
+    binded = (errcheck != -1);
   }
   errcheck = listen(self -> fd, 1);
   if (errcheck == -1) {
     printf("Error: %s\n", strerror(errno));
   }
+  freeaddrinfo(ptr);
+  return returnValue;
 }
 
 int socketS_acceptClient(socketS_t *self) {

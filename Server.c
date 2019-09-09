@@ -9,10 +9,8 @@
 
 int server_init(server_t *self, const char *service) {
   sudoku_init(&self -> sudoku);
-  int returnValue = socket_init(&self -> socket, service, 's');
-  if (returnValue == OK) {
-    returnValue = socket_bindAndListen(&self -> socket, service);
-    }
+  socketS_init(&self -> socket);
+  int returnValue = socketS_bindAndListen(&self -> socket, service);
   return returnValue;
 }
 
@@ -51,7 +49,7 @@ void server_decodeCommand(server_t *self, char *buf) {
 
 int server_accept(server_t *self) {
   int returnValue = OK;
-  int fd = socket_acceptClient(&self -> socket);
+  int fd = socketS_acceptClient(&self -> socket);
   if (fd > 0) {
     protocolS_init(&self -> protocol, fd);
   } else {
@@ -98,5 +96,5 @@ void server_get(server_t *self){
 void server_release(server_t *self) {
   sudoku_release(&self -> sudoku);
   protocolS_release(&self -> protocol);
-  socket_release(&self -> socket);
+  socketS_release(&self -> socket);
 }

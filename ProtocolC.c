@@ -11,7 +11,8 @@
 #define EXIT 3
 
 int protocolC_init(protocolC_t *self, const char *host, const char *service) {
-  socketC_init(&self -> socket, host, service); //chequear errores de esta funcion
+  socketC_init(&self -> socket);
+  socketC_connect(&self -> socket, host, service);
   return 0;
 }
 

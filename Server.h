@@ -2,13 +2,14 @@
 #define _SERVER_H_
 
 #include "Sudoku.h"
-#include "Socket.h"
+//#include "Socket.h"
 #include "ProtocolS.h"
+#include "SocketS.h"
 
 typedef struct {
   sudoku_t sudoku;
   protocolS_t protocol;
-  socket_t socket;
+  socketS_t socket;
 } server_t;
 
 int server_init(server_t *self, const char *service);
