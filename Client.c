@@ -39,19 +39,19 @@ int client_executeCommand(client_t *self) {
 }
 
 int client_decodeCommand(client_t *self, const char *input) {
-  if(strncmp(input, "put", 3) == 0){
+  if(strcmp(input, "put\n") == 0){
     client_putNumber(self, input);
 
-  } else if(strncmp(input, "verify", 6) == 0) {
+  } else if(strcmp(input, "verify\n") == 0) {
     client_verify(self);
 
-  } else if (strncmp(input, "reset", 5) == 0) {
+  } else if (strcmp(input, "reset\n") == 0) {
     client_reset(self);
 
-  } else if (strncmp(input, "get", 3) == 0) {
+  } else if (strcmp(input, "get\n") == 0) {
     client_get(self);
 
-  } else if(strncmp(input, "exit", 4) == 0) {
+  } else if(strcmp(input, "exit\n") == 0) {
     return EXIT;
   }
   return 0;
