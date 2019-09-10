@@ -9,11 +9,11 @@
 void board_init(board_t *self) {
   FILE* boardFile;
   boardFile = fopen("board.txt", "r");
-  int asciiNumber = fgetc(boardFile);
+  char asciiNumber = fgetc(boardFile);
   for (int row = 0; row < ROW_SIZE; row ++) {
     for (int column = 0; column < COLUMN_SIZE; column ++) {
       cell_t cell;
-      cell_init(&cell, asciiNumber - ASCII_CERO);
+      cell_init(&cell, asciiNumber);
       self -> sudokuBoard [row][column] = cell;
       fgetc(boardFile);
       asciiNumber = fgetc(boardFile);

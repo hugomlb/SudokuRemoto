@@ -5,7 +5,7 @@
 
 typedef struct {
   int number;
-  bool clue;
+  bool isClue;
 } cell_t;
 
 void cell_init(cell_t *self, int cellNum);

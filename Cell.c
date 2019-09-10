@@ -5,15 +5,16 @@
 #define ADD_TO_HINT -1
 #define OK 0
 void cell_init(cell_t *self, int cellNum) {
-    self -> clue = false;
-    cell_add(self, cellNum);
-    if (cellNum > 0) {
-      self -> clue = true;
-    }
+  self -> isClue = false;
+  int myNumber = cellNum - ASCII_CERO;
+  cell_add(self, myNumber);
+  if (myNumber > 0) {
+    self -> isClue = true;
+  }
 }
 
 int cell_add(cell_t *self, int cellNum) {
-  if (!(self -> clue)) {
+  if (!(self -> isClue)) {
     self -> number = cellNum;
     return OK;
   } else {
@@ -22,7 +23,7 @@ int cell_add(cell_t *self, int cellNum) {
 }
 
 void cell_restart(cell_t *self) {
-  if (!(self -> clue)) {
+  if (!(self -> isClue)) {
     cell_add(self, 0);
   }
 }
