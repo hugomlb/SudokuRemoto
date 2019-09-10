@@ -77,7 +77,6 @@ void client_decodePut(client_t *self, char *input) {
 }
 
 void client_putNumber(client_t *self, char *number, char *row, char *column) {
-  int socketState = protocolC_send(&self -> protocol, "P", 1);
   int numbersInRange = OK;
   numbersInRange = client_checkRange(self, number, numbersInRange);
   if (numbersInRange == ERROR) {
@@ -89,14 +88,17 @@ void client_putNumber(client_t *self, char *number, char *row, char *column) {
       fprintf(stderr, "%s", "Error en los índices. Rango soportado: [1,9]\n");
     }
   }
-  if ((socketState == OK) && (numbersInRange == OK)) {
-    uint8_t x[3];
-    x[0] = atoi(number);
-    x[1] = atoi(row);
-    x[2] = atoi(column);
-    socketState = protocolC_send(&self -> protocol, (char*) &x, 3);
+  if (numbersInRange == OK) {
+    int socketState = protocolC_send(&self -> protocol, "P", 1);
     if (socketState == OK) {
-      socketState = protocolC_getAnswer(&self -> protocol);
+      uint8_t x[3];
+      x[0] = atoi(number);
+      x[1] = atoi(row);
+      x[2] = atoi(column);
+      socketState = protocolC_send(&self -> protocol, (char*) &x, 3);
+      if (socketState == OK) {
+        socketState = protocolC_getAnswer(&self -> protocol);
+      }
     }
   }//HACER return DEL SOCKET STATE en este y los otros
 }
@@ -108,7 +110,6 @@ int client_checkRange(client_t *self, char *number, int prevNumbers) {
     if ((numberToCheck >= 1) && (numberToCheck <= 9)) {
       returnValue = OK;
     }
-
   }
   return returnValue;
 }
