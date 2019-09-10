@@ -76,7 +76,7 @@ int socketS_bindAndListen(socketS_t *self, const char *service) {
 int socketS_acceptClient(socketS_t *self) {
   int fd = accept(self -> fd, NULL, NULL);
   if (fd == -1) {
-    printf("Error: %s\n", strerror(errno)); //CHEQUEAR BIEN QUE HACER CON ERROR
+    printf("Error: %s\n", strerror(errno)); 
   }
   return fd;
 }

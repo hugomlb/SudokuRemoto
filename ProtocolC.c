@@ -9,7 +9,7 @@
 #define ERROR 1
 #define SOCKET_CLOSED 2
 #define EXIT 3
-
+#define TRUE 4
 int protocolC_init(protocolC_t *self, const char *host, const char *service) {
   socketC_init(&self -> socket);
   socketC_connect(&self -> socket, host, service);
@@ -36,6 +36,14 @@ int protocolC_getAnswer(protocolC_t *self) {
     }
   }
   return returnValue;
+}
+
+int protocolC_sendCmmd(protocolC_t *self, char *buf, int getAnsw, int lenght) {
+  int socketState = protocolC_send(self, buf, lenght);
+  if (socketState == OK && getAnsw == TRUE) {
+    socketState = protocolC_getAnswer(self);
+  }
+  return socketState;
 }
 
 void protocolC_release(protocolC_t *self) {

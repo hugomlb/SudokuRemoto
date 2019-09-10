@@ -19,13 +19,9 @@ int client_executeCommand(client_t *self);
 
 void client_putNumber(client_t *self, char *number, char *row, char *column);
 
-int client_checkRange(client_t *self, char *number, int prevNumbers);
+int client_checkNumbers(client_t *self, char *number, char *row, char *column);
 
-void client_verify(client_t *self);
-
-void client_reset(client_t *self);
-
-void client_get(client_t *self);
+int client_checkNumberRange(client_t *self, char *number, int prevNumbers);
 
 void client_release(client_t *self);
 
