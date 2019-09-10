@@ -4,21 +4,35 @@
 #define ASCII_CERO 48
 #define ADD_TO_HINT -1
 #define OK 0
-void cell_init(cell_t *self, int cellNum) {
-  self -> isClue = false;
-  int myNumber = cellNum - ASCII_CERO;
-  cell_add(self, myNumber);
-  if (myNumber > 0) {
-    self -> isClue = true;
-  }
+
+void cell_init(cell_t *self, char cellNum) {
+    self -> isClue = false;
+    int myNumber = cellNum - ASCII_CERO;
+    cell_add(self, myNumber);
+    if (myNumber > 0) {
+      self -> isClue = true;
+    }
+    cell_setPrintableCell(self, myNumber);
 }
 
 int cell_add(cell_t *self, int cellNum) {
+  int returnValue = ADD_TO_HINT;
   if (!(self -> isClue)) {
     self -> number = cellNum;
-    return OK;
+    cell_setPrintableCell(self, cellNum);
+    returnValue = OK;
+  }
+  cell_setPrintableCell(self, cellNum);
+  return returnValue;
+}
+
+void cell_setPrintableCell(cell_t *self, int cellNum) {
+  char newValue;
+  if (cellNum > 0) {
+    newValue = cellNum + ASCII_CERO;
+    strncpy(self -> printableCell, &newValue, 1);
   } else {
-    return ADD_TO_HINT;
+    strncpy(self -> printableCell, " ", 1);
   }
 }
 
@@ -33,18 +47,9 @@ int cell_getNumber(cell_t *self) {
 }
 
 void cell_get(cell_t *self, char *buf) {
-  char *espace = " ";
-  char printableNum;
-  char printableCell[4] = " ";
-  if (self -> number == 0) {
-    printableNum = *espace;
-  } else {
-    printableNum = (self -> number + ASCII_CERO);
-  }
-  strncpy(printableCell, espace, 1);
-  strncat(printableCell, &printableNum, 1);
-  strncat(printableCell, espace, 1);
-  strncat(buf, printableCell, 3);
+  strncat(buf, " ", 1);
+  strncat(buf, self -> printableCell, 1);
+  strncat(buf, " ", 1);
 }
 
 void cell_release(cell_t *self) {
