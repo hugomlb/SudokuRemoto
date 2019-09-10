@@ -2,21 +2,20 @@
 #include "Cell.h"
 #include <stdio.h>
 #include <string.h>
-#define ASCII_CERO 48
 #define ROW_SIZE 9
 #define COLUMN_SIZE 9
 
 void board_init(board_t *self) {
   FILE* boardFile;
   boardFile = fopen("board.txt", "r");
-  char asciiNumber = fgetc(boardFile);
+  char number = fgetc(boardFile);
   for (int row = 0; row < ROW_SIZE; row ++) {
     for (int column = 0; column < COLUMN_SIZE; column ++) {
       cell_t cell;
-      cell_init(&cell, asciiNumber);
+      cell_init(&cell, number);
       self -> sudokuBoard [row][column] = cell;
       fgetc(boardFile);
-      asciiNumber = fgetc(boardFile);
+      number = fgetc(boardFile);
     }
   }
   fclose(boardFile);
