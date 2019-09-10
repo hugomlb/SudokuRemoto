@@ -18,3 +18,7 @@ int sector_checkRules(sector_t *self, ruleVerifier_t *ruleVerifier) {
   }
   return ruleVerifier_verify(ruleVerifier);
 }
+
+void sector_release(sector_t *self) {
+  //DO NOTHING
+}

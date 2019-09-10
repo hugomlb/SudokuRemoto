@@ -40,3 +40,7 @@ void row_addSector(row_t *self, char *buf, int sectorNum) {
   }
   cell_get(self -> rowStart + 2 + sectorNum, buf);
 }
+
+void row_release(row_t *self) {
+  //DO NOTHING
+}

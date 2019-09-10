@@ -19,4 +19,6 @@ void row_makePrintableRow(row_t *self, char *buf);
 
 void row_addSector(row_t *self, char *buf, int sectorNum);
 
+void row_release(row_t *self);
+
 #endif

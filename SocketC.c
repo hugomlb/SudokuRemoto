@@ -14,6 +14,7 @@
 #define SOCKET_CLOSED 2
 
 void socketC_init(socketC_t *self) {
+  self -> fd = -1;
 }
 
 int socketC_connect(socketC_t *self, const char* host, const char* service) {
@@ -86,7 +87,7 @@ int socketC_receive(socketC_t *self, char *buf, int size) {
     } else if (s == -1) {
       printf("Error: %s\n", strerror(errno));
       returnValue = ERROR;
-      received = size +1;
+      socketValid = false;
     }
     received += s;
   }

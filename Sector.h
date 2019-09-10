@@ -13,4 +13,6 @@ void sector_init(sector_t *self, board_t *pBoard, int rowNum, int columnNum);
 
 int sector_checkRules(sector_t *self, ruleVerifier_t *ruleVerifier);
 
+void sector_release(sector_t *self);
+
 #endif

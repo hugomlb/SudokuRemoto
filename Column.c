@@ -17,3 +17,7 @@ int column_checkRules(column_t *self, ruleVerifier_t *ruleVerifier) {
   }
   return ruleVerifier_verify(ruleVerifier);
 }
+
+void column_release(column_t *self) {
+  //DO NOTHING
+}

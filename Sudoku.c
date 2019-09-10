@@ -90,5 +90,12 @@ void sudoku_addSectors(sudoku_t *self, char *buf, int sectorStart) {
 }
 
 void sudoku_release(sudoku_t *self) {
-  //HACER LOS RELEASE DE TODOS LOS ATRIBUTOS
+  board_release(&self -> board);
+
+  for (int i = 0; i < 9; i++) {
+    column_release(&(self -> columns[i]));
+    row_release(&(self -> rows[i]));
+    sector_release(&(self -> sectors[i]));
+  }
+
 }

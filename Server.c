@@ -6,13 +6,18 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 #define ADD_TO_HINT -1
+#define BOARD_SIZE 723
 #define UNMODIFIABLE "La celda indicado no es modificable\n"
+#define ON_RULE "OK\n"
+#define NOT_ON_RULE "ERROR\n"
 
 int server_init(server_t *self, const char *service) {
   sudoku_init(&self -> sudoku);
-  int returnValue = socketS_init(&self -> socket, service);
-  returnValue = socketS_bindAndListen(&self -> socket, service);
-  return returnValue;
+  int socketState = socketS_init(&self -> socket, service);
+  if (socketState == OK) {
+    socketState = socketS_bindAndListen(&self -> socket, service);
+  }
+  return socketState;
 }
 
 int server_run(server_t *self) {
@@ -73,18 +78,18 @@ void server_put(server_t *self) {
     } else {
       server_get(self);
     }
-  }//VER SI DEVOLVER ERROR
+  }
 }
 
 void server_verifyRules(server_t *self) {
   int errCheck;
   errCheck = sudoku_checkRules(& self -> sudoku);
   if (errCheck == 0) {
-    protocolS_send(&self -> protocol, "OK\n", 3);
+    protocolS_send(&self -> protocol, ON_RULE, 3);
   } else {
-    protocolS_send(&self -> protocol, "ERROR\n", 6);
+    protocolS_send(&self -> protocol, NOT_ON_RULE, 6);
   }
-}  //ATRAPAR ERRORES DE SEND
+}
 
 void server_resetSudoku(server_t *self) {
   sudoku_restart(& self -> sudoku);
@@ -92,10 +97,10 @@ void server_resetSudoku(server_t *self) {
 }
 
 void server_get(server_t *self){
-  char buf[723];
+  char buf[BOARD_SIZE];
   sudoku_get(& self -> sudoku, buf);
-  protocolS_send(&self -> protocol, buf, 723);
-} //ATRAPAR ERROR DE SEND
+  protocolS_send(&self -> protocol, buf, BOARD_SIZE);
+}
 
 void server_release(server_t *self) {
   sudoku_release(&self -> sudoku);
