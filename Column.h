@@ -2,6 +2,7 @@
 #define  _COLUMN_H_
 
 #include "Cell.h"
+#include "RuleVerifier.h"
 #include "Board.h"
 
 typedef struct {
@@ -10,6 +11,6 @@ typedef struct {
 
 void column_init(column_t *self, board_t *pBoard, int columnNum);
 
-int column_checkRules(column_t *self);
+int column_checkRules(column_t *self, ruleVerifier_t *ruleVerifier);
 
 #endif
