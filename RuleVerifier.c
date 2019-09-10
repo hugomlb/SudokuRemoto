@@ -4,6 +4,10 @@
 #define NO 1;
 
 void ruleVerifier_init(ruleVerifier_t *self) {
+  ruleVerifier_reset(self);
+}
+
+void ruleVerifier_reset(ruleVerifier_t *self) {
   for (int i = 0; i < 10; i ++) {
     self -> numbers [i] = 0;
   }

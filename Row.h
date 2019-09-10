@@ -2,6 +2,7 @@
 #define  _ROW_H_
 
 #include "Cell.h"
+#include "RuleVerifier.h"
 #include "Board.h"
 
 typedef struct {
@@ -10,7 +11,7 @@ typedef struct {
 
 void row_init(row_t *self, board_t *pBoard, int rowNum);
 
-int row_checkRules(row_t *self);
+int row_checkRules(row_t *self, ruleVerifier_t *ruleVerifier);
 
 void row_get(row_t *self, char* buf);
 

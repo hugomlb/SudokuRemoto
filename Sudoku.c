@@ -1,6 +1,7 @@
 #include "Sudoku.h"
 #include <stdio.h>
 #include <string.h>
+#include "RuleVerifier.h"
 #define YES 0
 #define ROW_LIMIT "U---+---+---U---+---+---U---+---+---U\n"
 #define SECTOR_LIMIT "U===========U===========U===========U\n"
@@ -38,8 +39,10 @@ int sudoku_checkRules(sudoku_t *self) {
 
 int sudoku_checkRulesOnRows(sudoku_t *self, int onRule) {
   int counter = 0;
+  ruleVerifier_t ruleVerifier;
+  ruleVerifier_init(&ruleVerifier);
   while (onRule == YES && counter < 9) {
-    onRule = row_checkRules(& (self -> rows[counter]));
+    onRule = row_checkRules(& (self -> rows[counter]), &ruleVerifier);
     counter ++;
   }
   return onRule;

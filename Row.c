@@ -9,14 +9,13 @@ void row_init(row_t *self, board_t *pBoard, int rowNum) {
   self -> rowStart = board_getCellIn(pBoard, rowNum, 0);
 }
 
-int row_checkRules(row_t *self) {
-  ruleVerifier_t ruleVerifier;
-  ruleVerifier_init(& ruleVerifier);
+int row_checkRules(row_t *self, ruleVerifier_t *ruleVerifier) {
+  ruleVerifier_reset(ruleVerifier);
   for (int i = 0; i < ROWSIZE; i ++) {
     int numToAdd = cell_getNumber(self -> rowStart + i);
-    ruleVerifier_addNumber(& ruleVerifier, numToAdd);
+    ruleVerifier_addNumber(ruleVerifier, numToAdd);
   }
-  return ruleVerifier_verify(& ruleVerifier);
+  return ruleVerifier_verify(ruleVerifier);
 }
 
 void row_get(row_t *self, char *buf) {
