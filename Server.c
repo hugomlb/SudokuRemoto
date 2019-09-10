@@ -10,8 +10,8 @@
 
 int server_init(server_t *self, const char *service) {
   sudoku_init(&self -> sudoku);
-  socketS_init(&self -> socket);
-  int returnValue = socketS_bindAndListen(&self -> socket, service);
+  int returnValue = socketS_init(&self -> socket, service);
+  returnValue = socketS_bindAndListen(&self -> socket, service);
   return returnValue;
 }
 

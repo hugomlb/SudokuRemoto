@@ -13,7 +13,34 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 
-void socketS_init(socketS_t *self) {
+int socketS_init(socketS_t *self, const char *service) {
+  struct addrinfo hints;
+  struct addrinfo *rst;
+  int returnValue = OK;
+  memset(&hints, 0, sizeof(struct addrinfo));
+  hints.ai_family = AF_INET;
+  hints.ai_socktype = SOCK_STREAM;
+  hints.ai_flags = AI_PASSIVE;
+  int errCheck = getaddrinfo(NULL, service, &hints, &rst);
+  if (errCheck != 0) {
+    printf("Error in getaddrinfo: %s\n", gai_strerror(errCheck));
+    returnValue = ERROR;
+  }
+  int aFd = socket(rst -> ai_family, rst -> ai_socktype, rst -> ai_protocol);
+  if (aFd == -1) {
+    printf("Error: %s\n", strerror(errno));
+    returnValue = ERROR;
+  }
+  int val = 1;
+  errCheck = setsockopt(aFd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
+  if (errCheck == -1) {
+     printf("Error: %s\n", strerror(errno));
+     close(aFd);
+     returnValue = ERROR;
+  }
+  self -> fd = aFd;
+  freeaddrinfo(rst);
+  return returnValue;
 }
 
 int socketS_bindAndListen(socketS_t *self, const char *service) {
@@ -25,34 +52,21 @@ int socketS_bindAndListen(socketS_t *self, const char *service) {
   hints.ai_family = AF_INET;
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_PASSIVE;
-  int errcheck = getaddrinfo(NULL, service, &hints, &rst);
-  if (errcheck != 0) {
-    printf("Error in getaddrinfo: %s\n", gai_strerror(errcheck));
+  int errCheck = getaddrinfo(NULL, service, &hints, &rst);
+  if (errCheck != 0) {
+    printf("Error in getaddrinfo: %s\n", gai_strerror(errCheck));
     returnValue = ERROR;
   }
-  int aFd = socket(rst -> ai_family, rst -> ai_socktype, rst -> ai_protocol);
-  if (aFd == -1) {
-    printf("Error: %s\n", strerror(errno));
-    returnValue = ERROR;
-  }
-  int val = 1;
-  int errCheck = setsockopt(aFd, SOL_SOCKET, SO_REUSEADDR, &val, sizeof(val));
-   if (errCheck == -1) {
-      printf("Error: %s\n", strerror(errno));
-      close(aFd);
-      returnValue = ERROR;
-   }
-  self -> fd = aFd;
   for (ptr = rst; ptr != NULL && binded == false; ptr = ptr -> ai_next) {
-    errcheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
-    if (errcheck == -1) {
+    errCheck = bind(self -> fd, ptr -> ai_addr, ptr -> ai_addrlen);
+    if (errCheck == -1) {
       printf("Error: %s\n", strerror(errno));
       close(errCheck);
     }
-    binded = (errcheck != -1);
+    binded = (errCheck != -1);
   }
-  errcheck = listen(self -> fd, 1);
-  if (errcheck == -1) {
+  errCheck = listen(self -> fd, 1);
+  if (errCheck == -1) {
     printf("Error: %s\n", strerror(errno));
   }
   freeaddrinfo(rst);

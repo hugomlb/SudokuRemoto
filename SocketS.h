@@ -8,7 +8,7 @@ typedef struct {
   int fd;
 } socketS_t;
 
-void socketS_init(socketS_t *self);
+int socketS_init(socketS_t *self, const char *service);
 
 int socketS_bindAndListen(socketS_t *self, const char *service);
 
