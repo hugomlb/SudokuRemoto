@@ -97,5 +97,4 @@ void sudoku_release(sudoku_t *self) {
     row_release(&(self -> rows[i]));
     sector_release(&(self -> sectors[i]));
   }
-
 }
