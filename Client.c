@@ -9,6 +9,7 @@
 #define OK 0
 #define SOCKET_CLOSED 2
 #define EXIT 3
+#define NUM_OUT_OF_RANGE "Error en el valor ingresado. Rango soportado: [1,9]\n"
 
 int client_init(client_t *self, const char *host, const char *service) {
   return protocolC_init(&self -> protocol, host, service);
@@ -77,7 +78,18 @@ void client_decodePut(client_t *self, char *input) {
 
 void client_putNumber(client_t *self, char *number, char *row, char *column) {
   int socketState = protocolC_send(&self -> protocol, "P", 1);
-  if (socketState == OK) {
+  int numbersInRange = OK;
+  numbersInRange = client_checkRange(self, number, numbersInRange);
+  if (numbersInRange == ERROR) {
+    fprintf(stderr, "%s", NUM_OUT_OF_RANGE);
+  } else {
+    numbersInRange = client_checkRange(self, row, numbersInRange);
+    numbersInRange = client_checkRange(self, column, numbersInRange);
+    if (numbersInRange == ERROR) {
+      fprintf(stderr, "%s", "Error en los índices. Rango soportado: [1,9]\n");
+    }
+  }
+  if ((socketState == OK) && (numbersInRange == OK)) {
     uint8_t x[3];
     x[0] = atoi(number);
     x[1] = atoi(row);
@@ -87,6 +99,18 @@ void client_putNumber(client_t *self, char *number, char *row, char *column) {
       socketState = protocolC_getAnswer(&self -> protocol);
     }
   }//HACER return DEL SOCKET STATE en este y los otros
+}
+
+int client_checkRange(client_t *self, char *number, int prevNumbers) {
+  int returnValue = ERROR;
+  if (prevNumbers == OK) {
+    int numberToCheck = atoi(number);
+    if ((numberToCheck >= 1) && (numberToCheck <= 9)) {
+      returnValue = OK;
+    }
+
+  }
+  return returnValue;
 }
 
 void client_verify(client_t *self) {
