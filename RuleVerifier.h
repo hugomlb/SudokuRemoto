@@ -14,4 +14,6 @@ void ruleVerifier_reset(ruleVerifier_t *self);
 
 int ruleVerifier_verify(ruleVerifier_t *self);
 
+void ruleVerifier_release(ruleVerifier_t *self);
+
 #endif

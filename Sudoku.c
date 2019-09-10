@@ -45,6 +45,7 @@ int sudoku_checkRulesOnRows(sudoku_t *self, int onRule) {
     onRule = row_checkRules(& (self -> rows[counter]), &ruleVerifier);
     counter ++;
   }
+  ruleVerifier_release(&ruleVerifier);
   return onRule;
 }
 
@@ -56,6 +57,7 @@ int sudoku_checkRulesOnColumns(sudoku_t *self, int onRule) {
     onRule = column_checkRules(& (self -> columns[counter]), &ruleVerifier);
     counter ++;
   }
+  ruleVerifier_release(&ruleVerifier);
   return onRule;
 }
 
@@ -67,6 +69,7 @@ int sudoku_checkRulesOnSectors(sudoku_t *self, int onRule) {
     onRule = sector_checkRules(& (self -> sectors[counter]), &ruleVerifier);
     counter ++;
   }
+  ruleVerifier_release(&ruleVerifier);
   return onRule;
 }
 

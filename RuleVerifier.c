@@ -32,3 +32,7 @@ int ruleVerifier_verify(ruleVerifier_t *self) {
   }
   return onRule;
 }
+
+void ruleVerifier_release(ruleVerifier_t *self) {
+  //DO NOTHING
+}
