@@ -76,3 +76,22 @@ U---+---+---U---+---+---U---+---+---U
 U   | 7 |   U 5 |   |   U 6 |   | 9 U
 U===========U===========U===========U
 ```
+
+## Comandos
+
+- Put: este comando sirve para ubicar un numero en una posicion del tablero. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
+
+```
+put <numero> in <fila>,<columna>
+```
+por ejemplo: 
+```
+put 4 in 9,9
+```
+Los indices de filas y columnas van del 1 al 9.
+(agregar posibles salidas del comando) ......
+
+- Verify: este comando se utiliza para verificar si los valores actuales cumplen con todas las reglas. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
+```
+verify
+```
