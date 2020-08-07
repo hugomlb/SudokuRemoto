@@ -52,3 +52,19 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
 4 0 6 0 0 0 1 0 0
 0 7 0 5 0 0 6 0 9
 ```
+
+Con el tablero mostrado en el ejemplo, el cliente vera lo siguiente:
+
+```
+U===========U===========U===========U
+U 3 |   | 5 U   |   | 8 U   | 1 | 0 U
+U 0 0 7 0 0 0 5 0 8
+U 1 2 0 7 5 0 0 9 0
+U 0 0 9 0 7 0 0 0 4
+U 0 0 4 3 0 5 9 0 0
+U 7 0 0 0 9 0 8 0 0 
+U 0 3 0 0 4 6 0 5 7
+U 4 0 6 0 0 0 1 0 0
+U 0 7 0 5 0 0 6 0 9
+U
+```
