@@ -22,11 +22,14 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
   
   El cliente se ejecuta de manera similar pero tambien se debera indicar el hostname del servidor
   
-  ./tp <modo> <hostname-servidor> <puerto>
+```
+./tp <modo> <hostname-servidor> <puerto>
+```
   
   Un ejemplo seria:
-  
- ./tp client localhost 7777
+```
+./tp client localhost 7777
+```
  
  ## Codigos de Retorno
  
