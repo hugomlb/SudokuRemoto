@@ -77,7 +77,7 @@ U   | 7 |   U 5 |   |   U 6 |   | 9 U
 U===========U===========U===========U
 ```
 
-## Comandos
+## Comandos ⌨️
 
 ### Put 
 Este comando sirve para ubicar un numero en una posicion del tablero. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
