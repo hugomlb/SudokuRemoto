@@ -42,85 +42,13 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
  El servidor lee el tablero a partir de un archivo llamado "board.txt" ubicado en l acarpeta donde esta situada la consola en la que se ejecute. Dicho archivo contara de nueve lineas de numeros separados por espacios, donde cada numero positivo representara el calor de una celda prefijada y las celdas vacias deberan ser representadas con un 0. Por ejemplo:
 
 ```
-3
-0
-1
-0
-0
-7
-0
-4
-0
-0
-0
-2
-0
-0
-0
-3
-0
-7
-5
-7
-0
-9
-4
-0
-0
-6
-0
-0
-0
-7
-0
-3
-0
-0
-0
-5
-0
-0
-5
-7
-0
-9
-4
-0
-0
-8
-0
-0
-0
-5
-0
-6
-0
-0
-0
-5
-0
-0
-9
-8
-0
-1
-6
-1
-0
-9
-0
-0
-0
-5
-0
-0
-0
-8
-0
-4
-0
-0
-7
-0
-9
+3 0 5 0 0 8 0 1 0
+0 0 7 0 0 0 5 0 8
+1 2 0 7 5 0 0 9 0
+0 0 9 0 7 0 0 0 4
+0 0 4 3 0 5 9 0 0
+7 0 0 0 9 0 8 0 0 
+0 3 0 0 4 6 0 5 7
+4 0 6 0 0 0 1 0 0
+0 7 0 5 0 0 6 0 9
 ```
