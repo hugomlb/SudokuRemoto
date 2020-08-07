@@ -13,7 +13,10 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
 ```
   
   Por ejemplo:
-  ./tp server 7777
+  
+  ```
+./tp server 7777
+```
   
   ## Cliente
   
