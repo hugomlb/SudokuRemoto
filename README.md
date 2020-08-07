@@ -5,7 +5,7 @@ Implementacion de un sistema cliente-servidor para jugar al Sudoku de manera rem
 - Servidor
 El servidor acepta unicamente una conexion.
 
-## Servidor
+## Servidor 🔧
 
 Para ejecutar el servidor, se debe iniciar el programa indicando el modo correspondiente e indicar en que puero debe escuchar las conexiones
 ```
@@ -18,7 +18,7 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
 ./tp server 7777
 ```
   
-  ## Cliente
+  ## Cliente 🚀
   
   El cliente se ejecuta de manera similar pero tambien se debera indicar el hostname del servidor
   
@@ -115,5 +115,5 @@ Para salir del programa desde el cliente  se debe escribir el siguiente comando
 ```
 exit
 ```
-## Protocolo de Comunicacion
+## Protocolo de Comunicacion 📢
 Se utiliza un  protocolo binario con el fin de minimizar el uso del ancho de banda en la subida del cliente. 
