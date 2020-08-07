@@ -39,4 +39,4 @@ Para ejecutar el servidor, se debe iniciar el programa indicando el modo corresp
   El cliente no hace uso ni de la salida estandar ni de la entrada estandar. El cliente, al contrario, utiliza la entrada estandar para ingresar los comandos y en la salida estandar se imprimen las respuestas provenientes del servidor o los errores especificados en cada comando.
   
   ## Representacion del Tablero
- 
+ El servidor lee el tablero a partir de un archivo llamado "board.txt" ubicado en l acarpeta donde esta situada la consola en la que se ejecute. Dicho archivo contara de nueve lineas de numeros separados por espacios
