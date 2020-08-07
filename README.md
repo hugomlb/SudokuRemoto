@@ -1,4 +1,4 @@
-# SudokuRemoto
+# Sudoku Remoto - Trabajo para Taller de Programacion I (75.42)
 
 Implementacion de un sistema cliente-servidor para jugar al Sudoku de manera remota. El programa se puede ejecutar en dos modos: 
 - Cliente
