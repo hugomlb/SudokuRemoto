@@ -8,8 +8,9 @@ El servidor acepta unicamente una conexion.
 ## Servidor
 
 Para ejecutar el servidor, se debe iniciar el programa indicando el modo correspondiente e indicar en que puero debe escuchar las conexiones
-
+```
 ./tp <modo> <puerto>
+```
   
   Por ejemplo:
   ./tp server 7777
