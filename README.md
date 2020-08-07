@@ -95,3 +95,18 @@ Los indices de filas y columnas van del 1 al 9.
 ```
 verify
 ```
+Si se estan cumplento con todas las reglas se devuelve un "OK" caso contrario se devuelve un "ERROR"
+
+- Reset: Este comando sirve para restablecer todas las celdas modificables, es decir, volver al comienzo del juego. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
+```
+reset
+```
+Se devuelve una representacion del tablero por salida estandar
+- Get: Se utiliza para  obtener el tablero.  Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
+```
+get
+```
+
+
+
+
