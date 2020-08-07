@@ -79,7 +79,7 @@ U===========U===========U===========U
 
 ## Comandos
 
-### Put: 
+### Put 
 Este comando sirve para ubicar un numero en una posicion del tablero. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
 
 ```
@@ -92,25 +92,28 @@ put 4 in 9,9
 Los indices de filas y columnas van del 1 al 9.
 (agregar posibles salidas del comando) ......
 
-### Verify: 
+### Verify 
 Este comando se utiliza para verificar si los valores actuales cumplen con todas las reglas. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
 ```
 verify
 ```
 Si se estan cumplento con todas las reglas se devuelve un "OK" caso contrario se devuelve un "ERROR"
 
-### Reset: 
+### Reset 
 Este comando sirve para restablecer todas las celdas modificables, es decir, volver al comienzo del juego. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
 ```
 reset
 ```
 Se devuelve una representacion del tablero por salida estandar
-### Get: 
+### Get 
 Se utiliza para  obtener el tablero.  Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
 ```
 get
 ```
-
-
-
-
+### Exit
+Para salir del programa desde el cliente  se debe escribir el siguiente comando
+```
+exit
+```
+## Protocolo de Comunicacion
+Se utiliza un  protocolo binario con el fin de minimizar el uso del ancho de banda en la subida del cliente. 
