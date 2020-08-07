@@ -79,7 +79,8 @@ U===========U===========U===========U
 
 ## Comandos
 
-- Put: este comando sirve para ubicar un numero en una posicion del tablero. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
+### Put: 
+Este comando sirve para ubicar un numero en una posicion del tablero. Desde el cliente se tiene que mandar por la entrada estandar un texto como el siguiente:
 
 ```
 put <numero> in <fila>,<columna>
